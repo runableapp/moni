@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutons personnalisés (YAML) — Manuel Moni</title>
+  <meta name="description" content="Recettes YAML pour la barre d'outils : commandes hledger, tableaux, modales, graphiques et programmes externes.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../fr.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Sélecteur de langue" title="Changer de langue" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇫🇷</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Sélecteur de langue">
+          <a href="../custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/custom-buttons.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="custom-buttons.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../fr.html">Accueil</a></li>
+      <li><a href="index.html" class="nav-cta">Manuel</a></li>
+      <li><a href="../../feedback.html">Commentaires</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Manuel Moni</p>
+    <nav>
+      <a href="index.html">Guide utilisateur</a>
+      <a href="custom-buttons.html" class="active">Boutons personnalisés (YAML)</a>
+      <a href="settings.html">Paramètres</a>
+      <a href="settings-ai.html" class="sub">Paramètres → IA</a>
+    </nav>
+    <a href="../../fr.html" class="manual-back">← Retour à l'accueil Moni</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>Boutons personnalisés (YAML)</h1>
+    <p class="manual-lead">Toolbar and ledger tools are defined as <strong>YAML recipes</strong>. Each custom button in Paramètres → Boutons points at a recipe by <code>yamlRef</code> (recipe id or file path). Moni loads the YAML, runs hledger or external commands, and renders the result in the Résultats du panneau comptable (tables or monospace text).</p>
+
+    <nav class="manual-toc" aria-label="Sur cette page">
+      <h2>Sur cette page</h2>
+      <ol>
+        <li><a href="#where">Where recipes live</a></li>
+        <li><a href="#minimal">Minimal recipe</a></li>
+        <li><a href="#delimited">Delimited text tables</a></li>
+        <li><a href="#multistep">Multi-step recipes</a></li>
+        <li><a href="#dates">Default dates</a></li>
+        <li><a href="#transforms">Transforms</a></li>
+        <li><a href="#sections">Multiple tables</a></li>
+        <li><a href="#external">External programs</a></li>
+        <li><a href="#pipe">Pipe and empty output</a></li>
+        <li><a href="#placeholders">Built-in placeholders</a></li>
+        <li><a href="#charts">Optional charts</a></li>
+        <li><a href="#wire-up">Wire up in Paramètres</a></li>
+      </ol>
+    </nav>
+
+    <section id="where" class="manual-section">
+      <h2>Where recipes live</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Location</th><th>Objectif</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>~/.config/moni/custom_buttons/&lt;id&gt;.yaml</code></td><td>User overrides (highest priority for id lookup)</td></tr>
+          <tr><td><code>&lt;executable&gt;/custom_buttons/&lt;id&gt;.yaml</code></td><td>Bundled beside the Moni binary</td></tr>
+          <tr><td>Any path ending in <code>.yaml</code> / <code>.yml</code>, or containing <code>/</code></td><td>Loaded directly when referenced</td></tr>
+        </tbody>
+      </table>
+      <p>In Paramètres → Boutons, each row has <strong>yamlRef</strong>: either a recipe <strong>id</strong> (e.g. <code>journal_check</code>) or an absolute/relative <strong>path</strong> (e.g. <code>~/recipes/my_tool.yaml</code>). Recipe ids must match <code>^[a-zA-Z0-9][a-zA-Z0-9._-]*$</code> (no <code>..</code> or slashes).</p>
+      <p>Shipped samples live in the app’s <code>custom_buttons/</code> folder. Copy one to your config directory to customize without rebuilding Moni.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Paramètres → Boutons</span></div>
+          <figcaption>Each row: label, yamlRef, enable toggle.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Recipe file in editor</span></div>
+          <figcaption>Edit YAML in <code>~/.config/moni/custom_buttons/</code>.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="minimal" class="manual-section">
+      <h2>Minimal recipe: one hledger command</h2>
+      <p><code>hledger check</code> produces no output when the journal is healthy. Show a friendly message instead of a blank panel:</p>
+<pre class="manual-code"><code>id: journal_check
+
+meta:
+  name: Journal check
+  description: Run hledger check on the full journal.
+
+run:
+  mode: hledger
+  argv:
+    - check
+
+output:
+  plain_text: true
+  when_empty: "Everything is ok! No issues reported by hledger check."</code></pre>
+      <ul>
+        <li><strong>run.mode: hledger</strong> — Moni runs <code>hledger -f &lt;your journal&gt; …</code> using Paramètres → hledger.</li>
+        <li><strong>run.argv</strong> — arguments after <code>-f &lt;journal&gt;</code>, not the full shell line.</li>
+        <li><strong>output.plain_text: true</strong> — show stdout/stderr as fixed-width text.</li>
+        <li><strong>output.when_empty</strong> — if displayed output is empty, show this string instead.</li>
+      </ul>
+    </section>
+
+    <section id="delimited" class="manual-section">
+      <h2>Parse line-oriented output into a styled table</h2>
+      <p><code>hledger stats</code> prints <code>key: value</code> lines. Turn that into a two-column table:</p>
+<pre class="manual-code"><code>id: journal_stats
+
+meta:
+  name: Journal overview
+  description: hledger stats summary.
+
+run:
+  mode: hledger
+  argv:
+    - stats
+
+output:
+  delimited_text:
+    delimiter: ":"
+    hide_header: true
+    no_striping: true
+    column_align: [right, left]
+    column_widths: [30%, 1fr]
+    column_borders: true
+    column_styles:
+      - background: accent-24
+        bold: true
+      - {}</code></pre>
+      <p><strong>output.delimited_text</strong> splits each non-empty line on the first occurrence of <code>delimiter</code>. Default column headers are <code>Field</code> / <code>Value</code> unless you set <code>columns</code>.</p>
+    </section>
+
+    <section id="multistep" class="manual-section">
+      <h2>Multi-step recipe: run hledger, parse CSV, show a table</h2>
+      <p>Most ledger tools use <strong>steps</strong>: each step has an <strong>id</strong>, runs hledger, and optionally parses or transforms the result.</p>
+<pre class="manual-code"><code>id: register_recent
+
+meta:
+  name: Recent activity
+  description: Register for a date range.
+
+ui:
+  modal:
+    when_empty:
+      period: ytd
+    fields:
+      - id: date_from
+        type: date
+        label_key: common.dateFrom
+        optional: true
+      - id: date_to
+        type: date
+        label_key: common.dateTo
+        optional: true
+
+steps:
+  - id: reg
+    run:
+      argv:
+        - register
+        - -p
+        - "{{period}}"
+        - -O
+        - csv
+    parse:
+      kind: hledger_register_csv
+
+output:
+  from_step: reg
+  table_view: register</code></pre>
+      <p><strong>Flow:</strong> user clicks the button → modal collects dates → Moni builds <code>{{period}}</code> → step runs <code>hledger … register -p &lt;period&gt; -O csv</code> → parser builds columns → <code>output.from_step</code> selects that table → <code>table_view: register</code> enables register-style drill-down.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Modal date picker</span></div>
+          <figcaption>Modal fields from <code>ui.modal.fields</code>.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Register table output</span></div>
+          <figcaption>Parsed CSV rendered as an interactive register.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="dates" class="manual-section">
+      <h2>Default dates when the modal is left blank</h2>
+<pre class="manual-code"><code>ui:
+  modal:
+    when_empty:
+      period: lastyear
+    fields:
+      - id: date_from
+        type: date
+        optional: true
+      - id: date_to
+        type: date
+        optional: true</code></pre>
+      <p>If the recipe uses <code>{{period}}</code> and the user leaves both dates empty, <code>when_empty.period</code> applies. User-entered dates always win.</p>
+      <table class="manual-table">
+        <thead><tr><th>Token</th><th>Range</th></tr></thead>
+        <tbody>
+          <tr><td><code>lastyear</code></td><td>Previous calendar year</td></tr>
+          <tr><td><code>thisyear</code></td><td>Current calendar year</td></tr>
+          <tr><td><code>thismonth</code></td><td>First of month .. today</td></tr>
+          <tr><td><code>lastmonth</code></td><td>Previous calendar month</td></tr>
+          <tr><td><code>last30days</code></td><td>Today − 30 days .. today</td></tr>
+          <tr><td><code>ytd</code>, <code>yeartodate</code></td><td>Jan 1 .. today</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="transforms" class="manual-section">
+      <h2>Transforms: reshape balance CSV</h2>
+      <p>A common pattern: <strong>run</strong> → <strong>parse</strong> <code>hledger_balance_csv</code> → <strong>transform</strong> → <strong>output</strong>.</p>
+<pre class="manual-code"><code>steps:
+  - id: csv
+    run:
+      argv:
+        - balance
+        - "^expenses:"
+        - -p
+        - "{{period}}"
+        - --flat
+        - -O
+        - csv
+    parse:
+      kind: hledger_balance_csv
+  - id: table
+    transform:
+      kind: flat_balance_table
+      source_step: csv
+
+output:
+  from_step: table</code></pre>
+      <p><strong>merge_account_profiles</strong> maps account names through Paramètres profile display names. <strong>stacked_balance_reports</strong> combines two balance CSV steps into one two-column report with section headings.</p>
+    </section>
+
+    <section id="sections" class="manual-section">
+      <h2>Multiple tables in one result</h2>
+      <p><strong>Separate sections</strong> (e.g. balance sheet):</p>
+<pre class="manual-code"><code>output:
+  sections:
+    - title: Assets
+      from_step: assets_table
+    - title: Liabilities
+      from_step: liab_table</code></pre>
+      <p><strong>Merged comparison</strong> (one row per account, one column per period):</p>
+<pre class="manual-code"><code>output:
+  merge_balance_sections: true
+  sections:
+    - title: "{{period_a}}"
+      from_step: table_a
+    - title: "{{period_b}}"
+      from_step: table_b</code></pre>
+      <p>Add <code>when_empty</code> on a section for a placeholder message when that section has no rows.</p>
+    </section>
+
+    <section id="external" class="manual-section">
+      <h2>External programs (not hledger)</h2>
+      <h3>Executable</h3>
+      <p><code>argv[0]</code> is the program; remaining entries are arguments. Modal values substitute into argv before run.</p>
+<pre class="manual-code"><code>run:
+  mode: executable
+  argv:
+    - /usr/bin/cal
+    - "{{month}}"
+    - "{{year}}"
+
+output:
+  plain_text: true</code></pre>
+      <h3>Shell</h3>
+      <p>Entire script as one string (Unix: <code>sh -c</code>; Windows: <code>cmd /C</code>):</p>
+<pre class="manual-code"><code>run:
+  mode: shell
+  script: |
+    echo "Journal: $HLEDGER_JOURNAL"
+    wc -l "$HLEDGER_JOURNAL"</code></pre>
+      <p>Environment includes <code>HLEDGER_JOURNAL</code>, <code>HLEDGER_JOURNAL_FILE</code>, and <code>MONI_TOOLS_DIR</code>.</p>
+    </section>
+
+    <section id="pipe" class="manual-section">
+      <h2>Post-process output: pipe and empty message</h2>
+<pre class="manual-code"><code>output:
+  plain_text: true
+  pipe:
+    argv: ["grep", "-i", "error"]</code></pre>
+      <p><strong>output.when_empty</strong> applies to the whole result after the pipe. For multi-step tables with zero rows, it shows your message instead of an empty grid.</p>
+      <p>Placeholders in argv are substituted, then empty <code>-b</code>, <code>-e</code>, <code>-p</code>, <code>-f</code> and their values are dropped so optional period/file flags disappear when unused.</p>
+    </section>
+
+    <section id="placeholders" class="manual-section">
+      <h2>Built-in query helpers</h2>
+      <p>If the YAML contains these placeholders, Moni fills them in automatically:</p>
+      <table class="manual-table">
+        <thead><tr><th>Placeholder</th><th>When empty, becomes</th></tr></thead>
+        <tbody>
+          <tr><td><code>{{expense_query}}</code></td><td><code>^expenses</code> or <code>expenses:&lt;leaf&gt;</code> from modal <code>expense_leaf</code></td></tr>
+          <tr><td><code>{{balance_query}}</code></td><td><code>^income</code> or <code>income:consulting:&lt;customer&gt;</code> from modal <code>customer</code></td></tr>
+          <tr><td><code>{{tag_slice_query}}</code></td><td><code>^expenses:</code> or <code>expenses tag:&lt;tag&gt;</code> from modal <code>tag</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="charts" class="manual-section">
+      <h2>Optional charts (pie, bar, line)</h2>
+      <p>Add chart fields to the modal and <code>output.chart</code> in YAML. Standard modal fields:</p>
+<pre class="manual-code"><code>ui:
+  modal:
+    when_empty:
+      chart_display: "off"
+      chart_period: monthly
+    fields:
+      - id: chart_display
+        type: select
+        optional: true
+        options: ["off", "pie", "bar", "line"]
+      - id: chart_period
+        type: select
+        optional: true
+        options: [daily, monthly, yearly]
+
+output:
+  chart:
+    param: chart_display
+    period:
+      param: chart_period
+      argv_param: period_flag
+      when_kinds: [bar, line]
+      flags: { daily: "-D", monthly: "-M", yearly: "-Y" }
+    layouts:
+      bar: stacked_period
+      line: period_series
+      pie: category_totals</code></pre>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chart + table</span></div>
+          <figcaption>Pie or bar chart above the ledger table.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chart type in modal</span></div>
+          <figcaption>User picks chart type from the button modal.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wire-up" class="manual-section">
+      <h2>Wire up in Paramètres</h2>
+      <ol>
+        <li>Save your recipe as <code>~/.config/moni/custom_buttons/my_tool.yaml</code> with a matching top-level <code>id:</code>.</li>
+        <li>Open Paramètres → Boutons → add or edit a row.</li>
+        <li>Set <strong>yamlRef</strong> to the id (e.g. <code>my_tool</code>) or a full path.</li>
+        <li>Enable the button and return to Accueil — it appears on the toolbar.</li>
+      </ol>
+      <div class="manual-callout">
+        Bundled recipes in the app install are a good starting point: copy one to your config folder, edit, and point yamlRef at your copy.
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← Guide utilisateur</a>
+      <a href="settings.html">Vue d'ensemble des paramètres →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

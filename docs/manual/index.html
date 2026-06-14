@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moni User Guide — Manual</title>
+  <meta name="description" content="Moni tabs and day-to-day workflow: Main, Accounts, Payees, Reports, Import, Settings, and Help.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../index.html" class="brand">
+      <img src="../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Language selector" title="Change language" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇺🇸</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Language selector">
+          <a href="index.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="ko/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="zh/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="ja/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="es/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="de/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="fr/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html" class="nav-cta">Manual</a></li>
+      <li><a href="../feedback.html">Feedback</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni Manual</p>
+    <nav>
+      <a href="index.html" class="active">User guide</a>
+      <a href="custom-buttons.html">Custom buttons (YAML)</a>
+      <a href="settings.html">Settings</a>
+      <a href="settings-ai.html" class="sub">Settings → AI</a>
+    </nav>
+    <a href="../index.html" class="manual-back">← Back to Moni home</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>User guide</h1>
+    <p class="manual-lead">Moni is a desktop companion for plain-text hledger journals. This guide walks through each tab in the app bar and what you can do there. Screenshots below are placeholders — replace them with real captures from your build when ready.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <ol>
+        <li><a href="#tabs">The tab bar</a></li>
+        <li><a href="#main">Main</a></li>
+        <li><a href="#accounts">Accounts</a></li>
+        <li><a href="#payees">Payees</a></li>
+        <li><a href="#reports">Reports</a></li>
+        <li><a href="#import">Import</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#help">Help</a></li>
+      </ol>
+    </nav>
+
+    <section id="tabs" class="manual-section">
+      <h2>The tab bar</h2>
+      <p>Seven tabs run across the top of the window. Together they cover daily ledger work, account browsing, reporting, CSV import, configuration, and in-app documentation.</p>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Tab</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🏠 Main</td><td>Ledger panel + AI chat; toolbar buttons run hledger tools</td></tr>
+          <tr><td>🏦 Accounts</td><td>Pick an account for balance chart and register</td></tr>
+          <tr><td>🧾 Payees</td><td>Browse payees and open payee registers</td></tr>
+          <tr><td>📈 Reports</td><td>Longer summary views (monthly reports, etc.)</td></tr>
+          <tr><td>📥 Import</td><td>Drop CSV bank exports; preview with hledger import</td></tr>
+          <tr><td>⚙️ Settings</td><td>hledger paths, AI, buttons, theme, backup, and more</td></tr>
+          <tr><td>❓ Help</td><td>Built-in Markdown topics shipped with the app</td></tr>
+        </tbody>
+      </table>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Full window — tab bar</span></div>
+          <figcaption>All seven tabs visible on a typical desktop layout.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Tab bar close-up</span></div>
+          <figcaption>Tab labels and icons match your UI language setting.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>First launch</span></div>
+          <figcaption>Before hledger is configured, Settings prompts you to set binary and journal paths.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="main" class="manual-section">
+      <h2>Main</h2>
+      <p>The Main tab splits the window into two panels. <strong>Ledger</strong> (left) shows results from toolbar buttons and built-in tools — tables, charts, and plain-text output stack in the panel. Use <strong>Clear</strong> to reset the stack. <strong>Chat</strong> (right) talks to the AI provider you chose under Settings → AI; if none is selected, Moni explains how to enable AI.</p>
+      <p>Toolbar buttons are YAML recipes (see <a href="custom-buttons.html">Custom buttons</a>). You can run hledger reports, registers, balance sheets, and external scripts from one click. Chat can suggest hledger commands; optional verification checks them against your installed hledger version.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Main — Ledger + Chat</span></div>
+          <figcaption>Split view: ledger results on the left, chat on the right.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Toolbar buttons</span></div>
+          <figcaption>Custom and bundled buttons across the top of the Ledger panel.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Register table + drill-down</span></div>
+          <figcaption>Button output as an interactive register with row drill-down.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Accounts</h2>
+      <p>Choose an account from the list (configured under Settings → Accounts). Moni shows a balance-over-time chart and a register filtered to that account. Account display names, icons, and institution hints come from your account profiles in Settings.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account list</span></div>
+          <figcaption>Accounts you marked visible in Settings → Accounts.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Balance chart</span></div>
+          <figcaption>Running balance for the selected account.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account register</span></div>
+          <figcaption>Posting list for the selected account.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="payees" class="manual-section">
+      <h2>Payees</h2>
+      <p>Browse payees extracted from your journal. Select a payee to open its register in a modal dialog — useful for reviewing spending with a single merchant or client.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Payee list</span></div>
+          <figcaption>Searchable list of payee names from the journal.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Payee register modal</span></div>
+          <figcaption>Register filtered to one payee, opened from the list.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reports" class="manual-section">
+      <h2>Reports</h2>
+      <p>Reports is a dedicated area for longer-running or summary views — for example monthly P&amp;L-style reports. Content here grows with future releases; many day-to-day reports still live on Main via toolbar buttons.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Reports tab overview</span></div>
+          <figcaption>Single-panel layout for report workflows.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Sample monthly report</span></div>
+          <figcaption>Example summary view (placeholder).</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Import</h2>
+      <p>Open Import and drop a <code>.csv</code>, <code>.ssv</code>, or <code>.tsv</code> file on the drop zone, or use the <strong>Import ▾</strong> menu. Moni applies your import rules and always previews with <code>hledger import --dry-run</code> before writing to the journal.</p>
+      <p>Two workflows are available: <strong>classic import</strong> (full-file import with overlap <code>.latest</code> tracking) and <strong>Smart Import</strong> (pick rows, append selected journal text). Toggle Smart Import under Settings → Import. For the full import guide, open Help → Import inside the app.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Import drop zone</span></div>
+          <figcaption>Drag-and-drop area for bank CSV exports.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Dry-run preview</span></div>
+          <figcaption>Preview postings before commit.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Smart Import row picker</span></div>
+          <figcaption>Select individual rows when Smart Import is enabled.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="settings" class="manual-section">
+      <h2>Settings</h2>
+      <p>Settings is organized into sections along the left: General, AI, Accounts, MCP, Advanced, AI Agents, Buttons, Appearance, Backup, hledger, Import, and Logs. Start with <strong>hledger</strong> (binary + journal path) and <strong>Accounts</strong> (which accounts appear on Main and Accounts).</p>
+      <p>See the dedicated <a href="settings.html">Settings manual</a> for each section. AI setup is covered in <a href="settings-ai.html">Settings → AI</a>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings sidebar</span></div>
+          <figcaption>Section list on the left, detail panel on the right.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings → hledger</span></div>
+          <figcaption>Binary path, journal file, and download helper.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings → Buttons</span></div>
+          <figcaption>Enable toolbar buttons and point each at a YAML recipe.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="help" class="manual-section">
+      <h2>Help</h2>
+      <p>The Help tab ships Markdown topics with the app — English by default, plus localized copies for German, Spanish, French, Japanese, Korean, and Chinese. Topics include import workflows, AI usage, and troubleshooting.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Help topic list</span></div>
+          <figcaption>Browse topics from the Help tab sidebar.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Help article rendered</span></div>
+          <figcaption>In-app Markdown rendered with the app theme.</figcaption>
+        </figure>
+      </div>
+      <div class="manual-callout">
+        <strong>Tip:</strong> Keep a backup of your journal before bulk imports or experimental AI-suggested rewrites. Enable automatic backup under Settings → Backup.
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="custom-buttons.html">Next: Custom buttons (YAML) →</a>
+      <a href="settings.html">Settings overview →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

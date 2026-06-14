@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설정 → AI — Moni 매뉴얼</title>
+  <meta name="description" content="Moni AI 구성: 로컬 llama.cpp·Ollama, 클라우드 OpenAI·Claude·Gemini, RAG, GPU, 채팅 옵션.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../ko.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="언어 선택" title="언어 변경" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇰🇷</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="언어 선택">
+          <a href="../settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="settings-ai.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../ko.html">홈</a></li>
+      <li><a href="index.html" class="nav-cta">매뉴얼</a></li>
+      <li><a href="../../feedback.html">피드백</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni 매뉴얼</p>
+    <nav>
+      <a href="index.html">사용자 가이드</a>
+      <a href="custom-buttons.html">사용자 지정 버튼 (YAML)</a>
+      <a href="settings.html">설정</a>
+      <a href="settings-ai.html" class="sub active">설정 → AI</a>
+    </nav>
+    <a href="../../ko.html" class="manual-back">← Moni 홈으로</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>설정 → AI</h1>
+    <p class="manual-lead">메인 → 채팅은 여기에서 선택한 제공자를 사용합니다. <strong>로컬 우선</strong> 옵션(llama.cpp, Ollama)은 저널과 메시지를 내 컴퓨터에만 보관합니다. 클라우드 제공자는 채팅 내용을 각자의 API로 전송하므로, 그 절충을 받아들일 수 있을 때만 사용하세요. 준비가 될 때까지 채팅을 끄려면 <strong>없음</strong>을 선택하세요.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>이 페이지에서</h2>
+      <ol>
+        <li><a href="#providers">제공자 선택</a></li>
+        <li><a href="#local">로컬 AI (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">클라우드 제공자</a></li>
+        <li><a href="#wrapper">AI Wrapper</a></li>
+        <li><a href="#rag">hledger 문서 (RAG)</a></li>
+        <li><a href="#chat">채팅 동작</a></li>
+        <li><a href="#troubleshoot">문제 해결</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 → AI 패널</span></div>
+        <figcaption>AI 섹션 상단의 제공자 드롭다운입니다.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>로컬 AI 설정 마법사</span></div>
+        <figcaption>로컬 AI 설정: 바이너리, 모델, 서버.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>AI가 활성화된 채팅</span></div>
+        <figcaption>제공자가 연결된 후의 메인 탭 채팅입니다.</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>제공자 선택</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>제공자</th><th>개인정보 보호</th><th>일반적인 사용</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>없음</strong></td><td>채팅 비활성화</td><td>원장 전용 워크플로</td></tr>
+          <tr><td><strong>로컬 llama.cpp</strong></td><td>완전 로컬</td><td>관리형 서버, 모델 다운로드, GPU 지원</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>로컬(Ollama 데몬)</td><td>이미 Ollama 모델을 실행 중인 경우</td></tr>
+          <tr><td><strong>OpenAI / Claude / Gemini</strong></td><td>클라우드 API</td><td>로컬 하드웨어가 제한될 때 강력한 모델 사용</td></tr>
+          <tr><td><strong>AI Wrapper</strong></td><td>Runable 데스크톱 앱 경유</td><td>외부 서비스용 확장 또는 Electron 브리지</td></tr>
+        </tbody>
+      </table>
+      <p>제공자를 변경한 뒤 채팅이 응답하지 않으면 AI 패널의 연결 상태 확인(상태 표시기)과 📜 <strong>로그</strong> 버튼을 사용하세요.</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>로컬 AI (llama.cpp)</h2>
+      <p>Moni는 <strong>llama-server</strong> 바이너리와 GGUF 모델을 다운로드한 뒤, <code>127.0.0.1</code>에서 서버 프로세스(포트 8081–8299)를 관리할 수 있습니다. 처음 사용하는 경우 권장 순서는 <strong>로컬 AI 설정</strong>를 클릭하거나 바이너리와 모델을 각각 다운로드한 다음 <strong>서버 시작</strong>를 누르는 것입니다.</p>
+
+      <h3>주요 제어</h3>
+      <ul>
+        <li><strong>사용할 모델</strong> — 기본 제공 프리셋을 고르거나 다른 GGUF 파일을 선택합니다. 서버 실행 중 모델을 바꾸면 재시작을 요구할 수 있습니다.</li>
+        <li><strong>가능하면 GPU 사용</strong> — GPU 지원 llama-server 빌드가 필요합니다. 특정 GPU 장치나 “All GPUs”를 선택할 수 있습니다.</li>
+        <li><strong>모델 추론(reasoning) 비활성화</strong> — 채팅에 권장됩니다. <code>--reasoning off</code>를 전달해 답변이 패널에 표시되도록 합니다(Qwen 3 같은 “thinking” 모델에 필요).</li>
+        <li><strong>재시작 없이 모델 전환(라우터 모드)</strong> — 다중 모델 <code>--models-dir</code> 레이아웃을 사용할 때 전체 재시작 없이 모델을 전환합니다.</li>
+        <li><strong>실행 시 로컬 AI 자동 시작</strong> — 앱이 로드된 뒤 관리형 서버를 시작합니다(바이너리와 모델이 이미 설치되어 있어야 함).</li>
+        <li><strong>채팅 reply length / timeout</strong> — 느린 하드웨어를 위해 토큰 수와 대기 시간을 제한합니다.</li>
+        <li><strong>실행 파일 디렉터리 / 모델 디렉터리</strong> — 기본 경로를 재정의합니다. <strong>경로를 기본값으로 재설정</strong>는 기본 레이아웃으로 되돌립니다.</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>llama.cpp 서버 제어</span></div>
+          <figcaption>시작/중지, 모델 선택기, GPU 토글.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>다운로드 진행 상황</span></div>
+          <figcaption>예상 시간이 포함된 바이너리 또는 GGUF 다운로드.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>서버 진단</span></div>
+          <figcaption>준비 상태 LED, 로그 끝부분, 진단 번들 복사.</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        Moni가 관리하는 서버는 localhost에서 8081부터 8299까지의 포트 중 처음 비어 있는 포트에 바인딩됩니다. 포트는 프로세스 식별 정보와 함께 저장되어 Moni가 재시작 후 다시 연결할 수 있습니다.
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>실행 중인 Ollama 인스턴스(기본 localhost base URL)를 Moni에 연결하세요. Ollama가 제공하는 목록에서 모델을 선택합니다. 채팅하기 전에 Ollama가 설치되어 있고 모델이 가져와져 있는지(<code>ollama pull …</code>) 확인하세요.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ollama 모델 목록</span></div>
+          <figcaption>Ollama 데몬에서 사용할 수 있는 모델입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>클라우드 제공자 (OpenAI, Claude, Gemini)</h2>
+      <p>API 키를 입력하세요(로컬 설정에 저장됨). 패널에 표시되는 모델과 제공자별 옵션을 선택할 수 있습니다. 클라우드 채팅은 로컬 GPU가 필요 없지만 대화 내용을 공급업체 API로 전송하므로, 외부와 공유할 수 없는 저널에는 사용하지 마세요.</p>
+      <p>관련 hledger 설정(설정 → hledger 아래): <strong>AI 응답의 hledger 명령 검증</strong>는 Run을 누르기 전에 설치된 바이너리와 버전에 맞는 complist를 기준으로 도우미 예시를 검사합니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>API 키 입력란</span></div>
+          <figcaption>제공자 자격 증명(UI에서는 마스킹됨).</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>모델 선택</span></div>
+          <figcaption>선택한 클라우드 제공자의 모델 등급을 고릅니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>AI Wrapper (실험적)</h2>
+      <p>같은 컴퓨터에서 실행 중인 Runable <strong>AI Wrapper</strong> 데스크톱 앱에 연결합니다. AI Wrapper → API에서 클라이언트를 등록하고, Preferences에서 서비스를 활성화한 뒤, Moni에 등록 토큰을 붙여 넣으세요. 서비스, 모드(Electron 인앱 웹뷰 또는 Chrome 확장), 클라이언트 라벨을 선택합니다. <strong>연결</strong>를 클릭하면 사용 가능한 서비스 목록을 불러옵니다.</p>
+      <p>보조 앱이 설치되어 있지 않다면 AI Wrapper 접근에 대해 Runable.app에 문의하세요.</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>hledger 문서 (RAG)</h2>
+      <p>Moni는 hledger 문서를 임베딩하여 로컬 AI 답변이 올바른 플래그와 개념을 인용하도록 할 수 있습니다. AI 패널의 상태 줄에는 다음이 표시됩니다:</p>
+      <ul>
+        <li><strong>사용 불가</strong> — 로컬 AI에서는 선택 사항이며, 클라우드는 이것이 없어도 동작할 수 있습니다.</li>
+        <li><strong>디스크에 있음; 첫 채팅 시 로드</strong> — 문서 인덱스가 있으며 첫 메시지를 보낼 때 로드됩니다.</li>
+        <li><strong>준비됨 — N개 문서 청크</strong> — 근거 기반 답변을 위한 검색이 활성화되어 있습니다.</li>
+      </ul>
+      <p>경로, 검색 순서, complist 세부 정보는 설정 → 로그 → 디버그의 <code>app.log</code> 또는 AI 패널의 제공자 📜 로그 버튼을 확인하세요.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>RAG 상태 줄</span></div>
+          <figcaption>AI 제공자 제어 아래에 표시되는 hledger 문서 준비 상태입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>메인의 채팅 동작</h2>
+      <p>제공자가 연결되면 메인 → 채팅에 입력하세요. Moni는 실행 가능한 hledger 명령을 제안할 수 있으며, Enter를 누르거나 컨트롤을 사용해 원장 패널에서 실행할 수 있습니다. 자동완성(설정 → hledger)이 활성화되어 있으면 hledger argv 입력 시 제안 팝오버가 나타나며, Ctrl+H로 입력 줄에서 hledger를 실행합니다.</p>
+      <p>상호작용 로깅(설정 → 로그)은 사용자 입력, AI 대화, 원장 패널 결과를 개인 감사 기록용으로 저장할 수 있습니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>채팅 hledger 제안</span></div>
+          <figcaption>채팅에서 hledger 명령 자동완성.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>채팅에서 명령 실행</span></div>
+          <figcaption>도우미가 제안한 명령이 원장 패널에서 실행됩니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>문제 해결</h2>
+      <ul>
+        <li><strong>OpenAI 호환 API에 연결할 수 없습니다.</strong> — llama.cpp의 경우 <strong>서버 시작</strong>가 성공했는지 확인하세요. 진단 LED에서 서버 로그를 열 수 있습니다. 방화벽이 localhost를 차단하지 않는지도 확인하세요.</li>
+        <li><strong>Wrong GPU build</strong> — CPU 전용 바이너리는 GPU 토글을 사용할 수 없습니다. GPU 지원 llama-server 변형을 다운로드하거나 설치하세요.</li>
+        <li><strong>Empty or “thinking” replies</strong> — <strong>모델 추론(reasoning) 비활성화</strong>을 활성화하고 서버를 재시작하세요.</li>
+        <li><strong>Cloud errors</strong> — API 키, 모델 이름, 네트워크를 확인하고, HTTP 상태는 📜 로그에서 읽으세요.</li>
+        <li><strong>RAG not loading</strong> — app.log의 디버그 줄을 확인하세요. 인덱스를 로드하는 동안 첫 채팅은 더 오래 걸릴 수 있습니다.</li>
+      </ul>
+      <p>문제를 보고할 때는 llama.cpp <strong>diagnostics bundle</strong>(상태 + 로그 끝부분)을 복사하세요. 저널을 노출하지 않으면서 지원팀에 필요한 모든 정보가 포함됩니다.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← 설정 개요</a>
+      <a href="index.html">사용자 가이드 →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

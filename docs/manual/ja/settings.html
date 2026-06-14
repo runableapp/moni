@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>設定 — Moni マニュアル</title>
+  <meta name="description" content="Moni 設定の概要：hledger、アカウント、AI、ボタン、インポート、バックアップ、外観、ログ。">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../ja.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="言語選択" title="言語を変更" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇯🇵</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="言語選択">
+          <a href="../settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="settings.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../ja.html">ホーム</a></li>
+      <li><a href="index.html" class="nav-cta">マニュアル</a></li>
+      <li><a href="../../feedback.html">フィードバック</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni マニュアル</p>
+    <nav>
+      <a href="index.html">ユーザーガイド</a>
+      <a href="custom-buttons.html">カスタムボタン (YAML)</a>
+      <a href="settings.html" class="active">設定</a>
+      <a href="settings-ai.html" class="sub">設定 → AI</a>
+    </nav>
+    <a href="../../ja.html" class="manual-back">← Moni ホームへ</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>設定</h1>
+    <p class="manual-lead">設定 は、左側にセクション一覧、右側に詳細パネルがあるフルタブとして開きます。まず hledger を設定し、その後に口座、ツールバーボタン、必要に応じて AI を設定してください。多くのセクションはユーザー設定フォルダ（Linux では <code>~/.config/moni/</code>）に保存されます。</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>セクション</h2>
+      <ol>
+        <li><a href="#general">一般</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#accounts">口座</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#advanced">詳細設定</a></li>
+        <li><a href="#agents">AI エージェント</a></li>
+        <li><a href="#buttons">ボタン</a></li>
+        <li><a href="#appearance">外観</a></li>
+        <li><a href="#backup">バックアップ</a></li>
+        <li><a href="#hledger">hledger</a></li>
+        <li><a href="#import">インポート</a></li>
+        <li><a href="#logs">ログ</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 概要</span></div>
+        <figcaption>セクションのサイドバーと現在のパネルです。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 → hledger</span></div>
+        <figcaption>Moni がレポートを実行する前に必要なパスです。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 → ボタン</span></div>
+        <figcaption>yamlRef リンク付きのツールバーボタン一覧です。</figcaption>
+      </figure>
+    </div>
+
+    <section id="general" class="manual-section">
+      <h2>一般</h2>
+      <p>UI 言語、起動時の動作、そのほかアプリ全体の設定です。言語を変更すると、翻訳があるタブ、モーダル、ヘルプ トピックにわたってローカライズされた文字列が再読み込みされます。</p>
+    </section>
+
+    <section id="ai" class="manual-section">
+      <h2>AI</h2>
+      <p>メイン → チャット で使う AI プロバイダーを選択します。ローカルの <strong>llama.cpp</strong> または <strong>Ollama</strong>（データは自分のマシン内に留まります）、あるいはクラウドの <strong>OpenAI</strong>、<strong>Claude</strong>、<strong>Gemini</strong> を利用できます。任意の <strong>AI Wrapper</strong> は、拡張ベースのサービス向けに Runable デスクトップラッパーへ接続します。</p>
+      <p>ローカル AI には、バイナリ/モデルのダウンロード、サーバーの起動/停止、GPU オプション、そして根拠ある回答のための hledger ドキュメント RAG（retrieval-augmented generation）が含まれます。</p>
+      <div class="manual-callout">
+        詳細手順: <a href="settings-ai.html">設定 → AI</a>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>AI プロバイダードロップダウン</span></div>
+          <figcaption>なし、llama.cpp、Ollama、OpenAI、Claude、Gemini から選択します。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ローカル AI 設定</span></div>
+          <figcaption>バイナリとモデルをダウンロードし、サーバーを起動します。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>口座</h2>
+      <p>hledger から口座ツリーを更新し、その後 メイン と 口座 に表示する口座を選びます。表示プロファイルとして、金融機関名、マスクされた口座ヒント、アイコン、並び順も設定できます。これらのプロファイルは <code>merge_account_profiles</code> のような YAML 変換でも使われます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>口座表示トグル</span></div>
+          <figcaption>UI に表示する口座を制御します。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>口座プロファイルエディタ</span></div>
+          <figcaption>表示名、アイコン、金融機関メタデータです。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="mcp" class="manual-section">
+      <h2>MCP</h2>
+      <p>対応する AI 構成で Moni が利用できる Model Context Protocol サーバー参照を設定します。組み込みの hledger ヘルプを超えてチャット機能を広げるツールのために、サーバー定義や接続情報を追加します。</p>
+    </section>
+
+    <section id="advanced" class="manual-section">
+      <h2>詳細設定</h2>
+      <p>上級者向けオプションです。カスタム設定パス、実験的フラグ、開発者向けトグルが含まれます。journal への書き込みや AI の挙動に与える影響を理解している場合にのみ変更してください。</p>
+    </section>
+
+    <section id="agents" class="manual-section">
+      <h2>AI エージェント</h2>
+      <p>Moni がエージェントプロファイル経由でチャットをルーティングするときに使うエージェント定義（システムプロンプト、ツールアクセス）を管理します。記帳向けと一般質問向けで別々の役割を用意したいときに便利です。</p>
+    </section>
+
+    <section id="buttons" class="manual-section">
+      <h2>ボタン</h2>
+      <p>ツールバーボタンを有効にし、各行の <strong>yamlRef</strong> にレシピ id または YAML ファイルパスを設定します。行の並び替えで メイン のツールバー配置を変更できます。レシピの作成方法は <a href="custom-buttons.html">カスタムボタン (YAML)</a> を参照してください。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ボタン一覧</span></div>
+          <figcaption>各行にラベル、yamlRef、有効化チェックボックスがあります。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="appearance" class="manual-section">
+      <h2>外観</h2>
+      <p>テーマ（light/dark/system）とフォントサイズです。フォントサイズは表、チャット、取引先レジスターダイアログ全体に適用され、読みやすさを統一します。</p>
+    </section>
+
+    <section id="backup" class="manual-section">
+      <h2>バックアップ</h2>
+      <p>Moni が journal ファイルを変更する前に、自動で journal をバックアップします。<strong>file backup</strong>（journal の横、または指定ディレクトリにタイムスタンプ付きコピーを作成）および/または <strong>git backup</strong>（リポジトリへコミット）を有効にできます。<strong>バックアップ now</strong> で手動スナップショットを作成し、必要に応じてファイルまたは git 履歴から復元できます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>バックアップ設定</span></div>
+          <figcaption>ファイルおよび git バックアップのトグルとパスです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>復元ダイアログ</span></div>
+          <figcaption>現在の journal を置き換える過去のバックアップを選択します。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hledger" class="manual-section">
+      <h2>hledger</h2>
+      <p><strong>必須です。</strong>hledger バイナリのパスとメイン journal ファイル（<code>-f</code>）を設定します。Moni は残高、レジスター、インポート、ボタンレシピの実行に hledger を使います。任意のトグルとして、台帳 結果の下にコピー&ペースト用 CLI を表示する、チャットで hledger を自動補完する、AI が提案したコマンドをインストール済みバージョンと照合して検証する、などがあります。</p>
+      <p>インストールされていない場合は、ダウンロード補助でプラットフォーム向けのビルド済み hledger リリースを取得できます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>バイナリ + journal パス</span></div>
+          <figcaption>すべてのユーザーに必要な基本設定です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>hledger をダウンロード</span></div>
+          <figcaption>対応プラットフォーム向けのアプリ内インストーラーです。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>インポート</h2>
+      <p>CSV インポートルールのディレクトリ、ファイル名とルールの対応、スマートインポート トグル、ドロップ時 dry-run、重複チェック、アーカイブディレクトリ、重複バックアップの挙動を設定します。Moni はまずルールディレクトリで <code>bank.csv.rules</code> を探し、その後 CSV ファイルの隣を探します。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>インポートルールディレクトリ</span></div>
+          <figcaption>新しいウィザードルールが既定で保存される場所です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ルール一致元</span></div>
+          <figcaption>CSV ファイル名の glob をルールファイルに対応付けます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="logs" class="manual-section">
+      <h2>ログ</h2>
+      <p>Moni は <code>interaction.log</code>（チャットと台帳パネル）および <code>app.log</code>（起動、エラー、デバッグ）を書き込みます。ログディレクトリの設定、記録する操作イベントの選択、app.log のデバッグ有効化、フォルダを開く、ログを削除することができます。AI 接続や YAML ボタンの失敗を調査するときに役立ちます。</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← ユーザーガイド</a>
+      <a href="settings-ai.html">設定 → AI（詳細）→</a>
+      <a href="custom-buttons.html">カスタムボタン (YAML) →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

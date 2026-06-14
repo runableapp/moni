@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajustes — Manual de Moni</title>
+  <meta name="description" content="Resumen de Ajustes de Moni: hledger, cuentas, IA, botones, importación, copias de seguridad, apariencia y registros.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../es.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Selector de idioma" title="Cambiar idioma" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇪🇸</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Selector de idioma">
+          <a href="../settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="settings.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../es.html">Inicio</a></li>
+      <li><a href="index.html" class="nav-cta">Manual</a></li>
+      <li><a href="../../feedback.html">Comentarios</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Manual de Moni</p>
+    <nav>
+      <a href="index.html">Guía de usuario</a>
+      <a href="custom-buttons.html">Botones personalizados (YAML)</a>
+      <a href="settings.html" class="active">Ajustes</a>
+      <a href="settings-ai.html" class="sub">Ajustes → IA</a>
+    </nav>
+    <a href="../../es.html" class="manual-back">← Volver al inicio de Moni</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>Ajustes</h1>
+    <p class="manual-lead">Configuración se abre como una pestaña completa con la lista de secciones a la izquierda y paneles de detalle a la derecha. Configura hledger primero, luego cuentas, botones de la barra e IA opcional. La mayoría de las secciones se guardan en tu carpeta de configuración (<code>~/.config/moni/</code> en Linux).</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>Secciones</h2>
+      <ol>
+        <li><a href="#general">General</a></li>
+        <li><a href="#ai">IA</a></li>
+        <li><a href="#accounts">Cuentas</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#advanced">Avanzado</a></li>
+        <li><a href="#agents">Agentes de IA</a></li>
+        <li><a href="#buttons">Botones</a></li>
+        <li><a href="#appearance">Apariencia</a></li>
+        <li><a href="#backup">Copia de seguridad</a></li>
+        <li><a href="#hledger">hledger</a></li>
+        <li><a href="#import">Importararararararararar</a></li>
+        <li><a href="#logs">Registros</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Resumen de Configuración</span></div>
+        <figcaption>Barra lateral de secciones y panel activo.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Configuración → hledger</span></div>
+        <figcaption>Rutas necesarias antes de que Moni pueda ejecutar informes.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Configuración → Botones</span></div>
+        <figcaption>Lista de botones de la barra con enlaces yamlRef.</figcaption>
+      </figure>
+    </div>
+
+    <section id="general" class="manual-section">
+      <h2>General</h2>
+      <p>Idioma de la interfaz, comportamiento al inicio y otras preferencias globales. Cambiar el idioma recarga cadenas localizadas en pestañas, modales y temas de Ayuda donde existan traducciones.</p>
+    </section>
+
+    <section id="ai" class="manual-section">
+      <h2>IA</h2>
+      <p>Elige un proveedor de IA para Principal → Chat: <strong>llama.cpp</strong> u <strong>Ollama</strong> locales (los datos permanecen en tu máquina), o <strong>OpenIA</strong>, <strong>Claude</strong> o <strong>Gemini</strong> en la nube. El <strong>IA Wrapper</strong> opcional se conecta al contenedor de escritorio Runable para servicios basados en extensiones.</p>
+      <p>La IA local incluye descarga de binario/modelo, inicio/parada del servidor, opciones de GPU y RAG de documentación hledger para respuestas fundamentadas.</p>
+      <div class="manual-callout">
+        Guía completa: <a href="settings-ai.html">Configuración → IA</a>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Menú de proveedor IA</span></div>
+          <figcaption>Selecciona Ninguno, llama.cpp, Ollama, OpenIA, Claude o Gemini.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Configuración IA local</span></div>
+          <figcaption>Descarga binario, modelo e inicia el servidor.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Cuentas</h2>
+      <p>Actualiza el árbol de cuentas desde hledger y elige qué cuentas aparecen en Principal y Cuentas. Añade perfiles de visualización: institución, dígitos enmascarados, iconos y orden. Los perfiles también alimentan transformaciones YAML como <code>merge_account_profiles</code>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Interruptores de visibilidad</span></div>
+          <figcaption>Controla qué cuentas se muestran en la interfaz.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Editor de perfil de cuenta</span></div>
+          <figcaption>Nombre visible, icono y metadatos de institución.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="mcp" class="manual-section">
+      <h2>MCP</h2>
+      <p>Configura referencias de servidores Model Context Protocol que Moni puede usar con configuraciones de IA compatibles. Añade definiciones de servidor y detalles de conexión para herramientas que amplían el chat más allá de la ayuda hledger integrada.</p>
+    </section>
+
+    <section id="advanced" class="manual-section">
+      <h2>Avanzado</h2>
+      <p>Opciones avanzadas: rutas de configuración personalizadas, indicadores experimentales y conmutadores orientados a desarrolladores. Cámbialos solo si comprendes el impacto en escrituras del diario y el comportamiento de la IA.</p>
+    </section>
+
+    <section id="agents" class="manual-section">
+      <h2>Agentes de IA</h2>
+      <p>Gestiona definiciones de agentes (prompts de sistema, acceso a herramientas) usadas cuando Moni enruta el chat mediante perfiles de agente. Útil para separar personas de contabilidad y preguntas generales.</p>
+    </section>
+
+    <section id="buttons" class="manual-section">
+      <h2>Botones</h2>
+      <p>Activa botones de la barra y establece el <strong>yamlRef</strong> de cada fila a un id de receta o ruta YAML. Reordena filas para cambiar el diseño en Principal. Consulta <a href="custom-buttons.html">Botones personalizados (YAML)</a> para crear recetas.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Lista de botones</span></div>
+          <figcaption>Etiqueta, yamlRef y casilla activada por fila.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="appearance" class="manual-section">
+      <h2>Apariencia</h2>
+      <p>Tema (claro/oscuro/sistema) y tamaño de fuente. El tamaño se aplica a tablas, chat y diálogos de registro de beneficiarios.</p>
+    </section>
+
+    <section id="backup" class="manual-section">
+      <h2>Copia de seguridad</h2>
+      <p>Copias de seguridad automáticas del diario antes de que Moni lo modifique. Activa <strong>file backup</strong> (copia con marca de tiempo junto al diario o en un directorio elegido) y/o <strong>git backup</strong> (commit en un repositorio). Usa <strong>Copia de seguridad now</strong> para una instantánea manual; restaura desde archivo o historial git cuando haga falta.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ajustes de backup</span></div>
+          <figcaption>Interruptores y rutas de backup en archivo y git.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Diálogo de restauración</span></div>
+          <figcaption>Elige una copia anterior para reemplazar el diario actual.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hledger" class="manual-section">
+      <h2>hledger</h2>
+      <p><strong>Obligatorio.</strong> Establece la ruta del binario hledger y el archivo principal del diario (<code>-f</code>). Moni ejecuta hledger para saldos, registros, importaciones y recetas de botones. Opciones: mostrar CLI copiable bajo resultados Libro mayor, autocompletado hledger en chat y verificar comandos sugeridos por la IA.</p>
+      <p>Un asistente de descarga puede obtener una versión precompilada de hledger para tu plataforma si no hay ninguna instalada.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Rutas de binario y diario</span></div>
+          <figcaption>Configuración básica que todo usuario necesita.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Descargar hledger</span></div>
+          <figcaption>Instalador integrado para plataformas compatibles.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Importararararararararar</h2>
+      <p>Directorio de reglas CSV, asignaciones nombre-de-archivo a reglas, interruptor Importarararararararararación inteligente, dry-run al soltar, comprobación de duplicados, directorio de archivo y comportamiento de copia de solapamiento. Moni resuelve <code>bank.csv.rules</code> primero en el directorio de reglas y luego junto al CSV.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Directorio de reglas</span></div>
+          <figcaption>Donde el asistente guarda nuevas reglas por defecto.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Fuentes de coincidencia</span></div>
+          <figcaption>Asocia patrones de nombre CSV a archivos de reglas.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="logs" class="manual-section">
+      <h2>Registros</h2>
+      <p>Moni escribe <code>interaction.log</code> (chat y panel ledger) y <code>app.log</code> (inicio, errores, depuración). Configura el directorio de logs, elige qué eventos registrar, activa depuración en app.log, abre la carpeta o elimina logs. Útil para diagnosticar conectividad de IA o fallos de botones YAML.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← Guía de usuario</a>
+      <a href="settings-ai.html">Configuración → IA (detallado) →</a>
+      <a href="custom-buttons.html">Botones personalizados (YAML) →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

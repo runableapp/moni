@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设置 → AI — Moni 手册</title>
+  <meta name="description" content="配置 Moni AI：本地 llama.cpp 与 Ollama、云端 OpenAI·Claude·Gemini、RAG、GPU 与聊天选项。">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../zh.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="语言选择" title="更改语言" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇨🇳</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="语言选择">
+          <a href="../settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="settings-ai.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../zh.html">首页</a></li>
+      <li><a href="index.html" class="nav-cta">手册</a></li>
+      <li><a href="../../feedback.html">反馈</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni 手册</p>
+    <nav>
+      <a href="index.html">用户指南</a>
+      <a href="custom-buttons.html">自定义按钮 (YAML)</a>
+      <a href="settings.html">设置</a>
+      <a href="settings-ai.html" class="sub active">设置 → AI</a>
+    </nav>
+    <a href="../../zh.html" class="manual-back">← 返回 Moni 首页</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>设置 → AI</h1>
+    <p class="manual-lead">主页 → 聊天 会使用你在这里选择的提供商。<strong>本地优先</strong>选项（llama.cpp、Ollama）会将你的 journal 和消息保留在本机。云提供商会把聊天内容发送到它们的 API，因此只有在你接受这种权衡时才应使用。若暂时不想启用聊天，请选择 <strong>无</strong>。</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>本页内容</h2>
+      <ol>
+        <li><a href="#providers">选择提供商</a></li>
+        <li><a href="#local">本地 AI (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">云提供商</a></li>
+        <li><a href="#wrapper">AI Wrapper</a></li>
+        <li><a href="#rag">hledger 文档 (RAG)</a></li>
+        <li><a href="#chat">聊天行为</a></li>
+        <li><a href="#troubleshoot">故障排查</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>设置 → AI 面板</span></div>
+        <figcaption>AI 分区顶部的提供商下拉框。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>本地 AI 设置向导</span></div>
+        <figcaption>设置本地 AI：二进制文件、模型、服务器。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>启用 AI 后的聊天</span></div>
+        <figcaption>连接提供商后的 主页 标签页聊天。</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>选择提供商</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>提供商</th><th>隐私</th><th>典型用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>无</strong></td><td>聊天已禁用</td><td>仅账本工作流</td></tr>
+          <tr><td><strong>本地 llama.cpp</strong></td><td>完全本地</td><td>托管服务器、模型下载、GPU 支持</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>本地（Ollama 守护进程）</td><td>如果你已经在运行 Ollama 模型</td></tr>
+          <tr><td><strong>OpenAI / Claude / Gemini</strong></td><td>云 API</td><td>当本地硬件有限时使用更强模型</td></tr>
+          <tr><td><strong>AI Wrapper</strong></td><td>通过 Runable 桌面应用</td><td>连接外部服务的扩展或 Electron 桥接</td></tr>
+        </tbody>
+      </table>
+      <p>切换提供商后，如果聊天没有响应，请使用 AI 面板中的连接性检查（状态指示器）和 📜 <strong>日志</strong> 按钮。</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>本地 AI (llama.cpp)</h2>
+      <p>Moni 可以下载一个 <strong>llama-server</strong> 二进制文件和 GGUF 模型，然后在 <code>127.0.0.1</code> 上管理服务器进程（端口 8081–8299）。首次使用时，推荐流程是点击 <strong>设置本地 AI</strong>，或分别下载二进制文件和模型，然后点击 <strong>启动服务器</strong>。</p>
+
+      <h3>关键控件</h3>
+      <ul>
+        <li><strong>使用的模型</strong> — 选择内置预设，或改用其他 GGUF 文件。运行中切换模型时，可能会提示重启。</li>
+        <li><strong>可用时使用 GPU</strong> — 需要支持 GPU 的 llama-server 构建；可以选择特定 GPU 设备或“All GPUs”。</li>
+        <li><strong>禁用模型推理（reasoning）</strong> — 推荐用于聊天；会传递 <code>--reasoning off</code>，使回复能显示在面板中（Qwen 3 等“thinking”模型需要这样做）。</li>
+        <li><strong>不重启切换模型（路由模式）</strong> — 在使用多模型 <code>--models-dir</code> 布局时，无需完全重启即可切换模型。</li>
+        <li><strong>启动时自动启动本地 AI</strong> — 应用加载后自动启动受管服务器（二进制文件和模型必须已安装）。</li>
+        <li><strong>聊天 reply length / timeout</strong> — 为较慢硬件限制 token 数和等待时间。</li>
+        <li><strong>可执行文件目录 / 模型目录</strong> — 覆盖默认路径；<strong>重置路径为默认值</strong> 可恢复为随应用提供的布局。</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>llama.cpp 服务器控制</span></div>
+          <figcaption>启动/停止、模型选择器、GPU 开关。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>下载进度</span></div>
+          <figcaption>显示预计剩余时间的二进制文件或 GGUF 下载。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>服务器诊断</span></div>
+          <figcaption>就绪状态 LED、日志尾部、复制诊断包。</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        Moni 管理的服务器会绑定到 localhost 上 8081 到 8299 之间第一个可用端口。该端口会与进程标识一起保存，以便 Moni 在重启后重新连接。
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>将 Moni 指向你正在运行的 Ollama 实例（默认 localhost base URL）。从 Ollama 暴露的列表中选择一个模型。聊天前请确保已安装 Ollama，并且模型已拉取（<code>ollama pull …</code>）。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ollama 模型列表</span></div>
+          <figcaption>你的 Ollama 守护进程中可用的模型。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>云提供商 (OpenAI, Claude, Gemini)</h2>
+      <p>输入你的 API key（保存在本地配置中）。选择面板中显示的模型以及各提供商特有的选项。云聊天不需要本地 GPU，但会将对话内容发送到供应商 API，因此不要将其用于不能对外共享的 journal。</p>
+      <p>相关 hledger 设置（位于 设置 → hledger 下）：<strong>验证 AI 回复中的 hledger 命令</strong> 会在你点击 Run 之前，使用与你版本匹配的 complist 和你的二进制文件检查助手给出的示例。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>API key 字段</span></div>
+          <figcaption>提供商凭据（在 UI 中会被遮蔽）。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>模型选择</span></div>
+          <figcaption>为所选云提供商选择模型等级。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>AI Wrapper（实验性）</h2>
+      <p>连接到同一台机器上的 Runable <strong>AI Wrapper</strong> 桌面应用。在 AI Wrapper → API 中注册一个客户端，在 Preferences 中启用服务，然后将注册令牌粘贴到 Moni 中。选择服务、模式（Electron 应用内 webview 或 Chrome 扩展）以及客户端标签。点击 <strong>连接</strong> 可列出可用服务。</p>
+      <p>如果你尚未安装该配套应用，请联系 Runable.app 以获取 AI Wrapper 访问权限。</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>hledger 文档 (RAG)</h2>
+      <p>Moni 可以嵌入 hledger 文档，使本地 AI 在回答时引用正确的标志和概念。AI 面板中的状态行会显示：</p>
+      <ul>
+        <li><strong>不可用（本地 AI 可选）。</strong> — 对本地 AI 来说是可选项；云提供商即使没有它也可能仍然可用。</li>
+        <li><strong>状态：文件在磁盘上；首次 AI 消息时加载到内存（任意提供商）。</strong> — 文档索引已存在，首次发送消息时会加载。</li>
+        <li><strong>就绪 — N 个文档块。</strong> — 已启用检索，可生成有依据的回复。</li>
+      </ul>
+      <p>关于路径、搜索顺序和 complist 细节，请查看 设置 → 日志 → 调试 中的 <code>app.log</code>，或 AI 面板中提供商的 📜 日志 按钮。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>RAG 状态行</span></div>
+          <figcaption>AI 提供商控件下方的 hledger 文档就绪状态。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>主页 中的聊天行为</h2>
+      <p>连接提供商后，在 主页 → 聊天 中输入内容。Moni 可能会建议可运行的 hledger 命令；按 Enter，或使用控件在 账本 面板中执行它们。启用自动补全（设置 → hledger）后，输入 hledger argv 时会显示建议弹窗；按 Ctrl+H 可直接从输入行运行 hledger。</p>
+      <p>交互日志（设置 → 日志）可记录用户输入、AI 对话以及账本面板结果，供你自己做审计追踪。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>聊天中的 hledger 建议</span></div>
+          <figcaption>聊天中的 hledger 命令自动补全。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>从聊天运行命令</span></div>
+          <figcaption>助手建议的命令会在 账本 面板中执行。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>故障排查</h2>
+      <ul>
+        <li><strong>OpenAI 兼容 API 无法访问。</strong> — 对于 llama.cpp，请确认 启动服务器 已成功；可从诊断 LED 打开服务器日志。还要检查防火墙是否阻止 localhost。</li>
+        <li><strong>Wrong GPU build</strong> — 纯 CPU 二进制文件无法使用 GPU 开关；请下载或安装支持 GPU 的 llama-server 变体。</li>
+        <li><strong>Empty or “thinking” replies</strong> — 启用 <strong>禁用模型推理（reasoning）</strong> 并重启服务器。</li>
+        <li><strong>Cloud errors</strong> — 检查 API key、模型名称和网络；通过 📜 日志 查看 HTTP 状态。</li>
+        <li><strong>RAG not loading</strong> — 查看 app.log 调试行；首次聊天在加载索引时可能会更慢。</li>
+      </ul>
+      <p>报告问题时，请复制 llama.cpp 的<strong>diagnostics bundle</strong>（状态 + 日志尾部）。它包含支持所需的全部信息，同时不会暴露你的 journal。</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← 设置 概览</a>
+      <a href="index.html">用户指南 →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

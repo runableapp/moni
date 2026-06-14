@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설정 — Moni 매뉴얼</title>
+  <meta name="description" content="Moni 설정 개요: hledger, 계정, AI, 버튼, 가져오기, 백업, 모양, 로그.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../ko.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="언어 선택" title="언어 변경" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇰🇷</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="언어 선택">
+          <a href="../settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="settings.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../ko.html">홈</a></li>
+      <li><a href="index.html" class="nav-cta">매뉴얼</a></li>
+      <li><a href="../../feedback.html">피드백</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni 매뉴얼</p>
+    <nav>
+      <a href="index.html">사용자 가이드</a>
+      <a href="custom-buttons.html">사용자 지정 버튼 (YAML)</a>
+      <a href="settings.html" class="active">설정</a>
+      <a href="settings-ai.html" class="sub">설정 → AI</a>
+    </nav>
+    <a href="../../ko.html" class="manual-back">← Moni 홈으로</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>설정</h1>
+    <p class="manual-lead">설정은 왼쪽에 섹션 목록, 오른쪽에 상세 패널이 있는 전체 탭으로 열립니다. 먼저 hledger를 설정한 다음 계정, 도구 모음 버튼, 선택적 AI를 구성하세요. 대부분의 섹션은 사용자 설정 폴더(Linux에서는 <code>~/.config/moni/</code>)에 저장됩니다.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>섹션</h2>
+      <ol>
+        <li><a href="#general">일반</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#accounts">계정</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#advanced">고급</a></li>
+        <li><a href="#agents">AI 에이전트</a></li>
+        <li><a href="#buttons">버튼</a></li>
+        <li><a href="#appearance">모양</a></li>
+        <li><a href="#backup">백업</a></li>
+        <li><a href="#hledger">hledger</a></li>
+        <li><a href="#import">가져오기</a></li>
+        <li><a href="#logs">로그</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 개요</span></div>
+        <figcaption>섹션 사이드바와 활성 패널입니다.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 → hledger</span></div>
+        <figcaption>Moni가 리포트를 실행하기 전에 필요한 경로입니다.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 → 버튼</span></div>
+        <figcaption>yamlRef 링크가 있는 도구 모음 버튼 목록입니다.</figcaption>
+      </figure>
+    </div>
+
+    <section id="general" class="manual-section">
+      <h2>일반</h2>
+      <p>UI 언어, 시작 동작, 기타 앱 전체 기본 설정입니다. 언어를 변경하면 번역이 있는 탭, 모달, 도움말 주제 전반에 걸쳐 현지화된 문자열이 다시 로드됩니다.</p>
+    </section>
+
+    <section id="ai" class="manual-section">
+      <h2>AI</h2>
+      <p>메인 → 채팅에 사용할 AI 제공자를 선택합니다: 로컬 <strong>llama.cpp</strong> 또는 <strong>Ollama</strong>(데이터가 내 컴퓨터에 머뭅니다), 또는 클라우드 <strong>OpenAI</strong>, <strong>Claude</strong>, <strong>Gemini</strong>. 선택적 <strong>AI Wrapper</strong>는 확장 기반 서비스용 Runable 데스크톱 래퍼에 연결합니다.</p>
+      <p>로컬 AI에는 바이너리/모델 다운로드, 서버 시작/중지, GPU 옵션, 근거 있는 답변을 위한 hledger 문서 RAG(retrieval-augmented generation)가 포함됩니다.</p>
+      <div class="manual-callout">
+        자세한 안내: <a href="settings-ai.html">설정 → AI</a>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>AI 제공자 드롭다운</span></div>
+          <figcaption>없음, llama.cpp, Ollama, OpenAI, Claude, Gemini 중에서 선택합니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>로컬 AI 설정</span></div>
+          <figcaption>바이너리 다운로드, 모델 다운로드, 서버 시작.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>계정</h2>
+      <p>hledger에서 계정 트리를 새로 고친 다음 메인과 계정에 표시할 계정을 선택합니다. 기관 이름, 마스킹된 계정 힌트, 아이콘, 정렬 순서를 포함한 표시 프로필도 추가할 수 있습니다. 프로필은 <code>merge_account_profiles</code> 같은 YAML 변환에도 사용됩니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>계정 표시 토글</span></div>
+          <figcaption>UI에 표시할 계정을 제어합니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>계정 프로필 편집기</span></div>
+          <figcaption>표시 이름, 아이콘, 기관 메타데이터입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="mcp" class="manual-section">
+      <h2>MCP</h2>
+      <p>지원되는 AI 설정에서 Moni가 사용할 수 있는 Model Context Protocol 서버 참조를 구성합니다. 내장 hledger 도움말을 넘어 채팅 기능을 확장하는 도구를 위해 서버 정의와 연결 정보를 추가하세요.</p>
+    </section>
+
+    <section id="advanced" class="manual-section">
+      <h2>고급</h2>
+      <p>고급 사용자를 위한 옵션입니다: 사용자 지정 설정 경로, 실험적 플래그, 개발자용 토글. 저널 쓰기와 AI 동작에 미치는 영향을 이해할 때만 변경하세요.</p>
+    </section>
+
+    <section id="agents" class="manual-section">
+      <h2>AI 에이전트</h2>
+      <p>Moni가 채팅을 에이전트 프로필로 라우팅할 때 사용하는 에이전트 정의(시스템 프롬프트, 도구 접근)를 관리합니다. 부기용 질문과 일반 질문에 서로 다른 페르소나를 두고 싶을 때 유용합니다.</p>
+    </section>
+
+    <section id="buttons" class="manual-section">
+      <h2>버튼</h2>
+      <p>도구 모음 버튼을 활성화하고 각 행의 <strong>yamlRef</strong>를 레시피 id 또는 YAML 파일 경로로 설정합니다. 행 순서를 바꿔 메인의 도구 모음 배치를 변경할 수 있습니다. 레시피 작성은 <a href="custom-buttons.html">사용자 지정 버튼 (YAML)</a>을 참고하세요.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>버튼 목록</span></div>
+          <figcaption>각 행마다 라벨, yamlRef, 활성화 체크박스가 있습니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="appearance" class="manual-section">
+      <h2>모양</h2>
+      <p>테마(light/dark/system)와 글꼴 크기입니다. 글꼴 크기는 표, 채팅, 거래처 등록부 대화상자 전반에 적용되어 일관된 가독성을 제공합니다.</p>
+    </section>
+
+    <section id="backup" class="manual-section">
+      <h2>백업</h2>
+      <p>Moni가 저널 파일을 변경하기 전에 자동으로 저널을 백업합니다. <strong>file backup</strong>(저널 옆 또는 선택한 디렉터리에 타임스탬프 사본 저장) 및/또는 <strong>git backup</strong>(저장소에 커밋)을 활성화하세요. <strong>백업 now</strong>로 수동 스냅샷을 만들고, 필요할 때 파일 또는 git 기록에서 복원할 수 있습니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>백업 설정</span></div>
+          <figcaption>파일 및 git 백업 토글과 경로입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>복원 대화상자</span></div>
+          <figcaption>현재 저널을 대체할 이전 백업을 선택합니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hledger" class="manual-section">
+      <h2>hledger</h2>
+      <p><strong>필수.</strong> hledger 바이너리 경로와 기본 저널 파일(<code>-f</code>)을 설정하세요. Moni는 잔액, 등록부, 가져오기, 버튼 레시피에 hledger를 사용합니다. 선택적 토글: 원장 결과 아래에 복사/붙여넣기용 CLI 표시, 채팅 hledger 자동완성, AI가 제안한 명령을 설치된 버전과 대조해 검증.</p>
+      <p>설치된 것이 없을 때 플랫폼용 사전 빌드 hledger 릴리스를 가져오는 다운로드 도우미도 사용할 수 있습니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>바이너리 + 저널 경로</span></div>
+          <figcaption>모든 사용자에게 필요한 핵심 설정입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>hledger 다운로드</span></div>
+          <figcaption>지원되는 플랫폼용 앱 내 설치 도구입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>가져오기</h2>
+      <p>CSV 가져오기 규칙 디렉터리, 파일명-규칙 매핑, 스마트 가져오기 토글, 드롭 시 dry-run, 중복 검사, 보관 디렉터리, 겹침 백업 동작을 설정합니다. Moni는 먼저 규칙 디렉터리에서 <code>bank.csv.rules</code>를 찾고, 그다음 CSV 파일 옆을 확인합니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>가져오기 규칙 디렉터리</span></div>
+          <figcaption>새 마법사 규칙이 기본적으로 저장되는 위치입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>규칙 일치 소스</span></div>
+          <figcaption>CSV 파일명 glob을 규칙 파일에 매핑합니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="logs" class="manual-section">
+      <h2>로그</h2>
+      <p>Moni는 <code>interaction.log</code>(채팅 및 원장 패널)와 <code>app.log</code>(시작, 오류, 디버그)를 기록합니다. 로그 디렉터리 설정, 기록할 상호작용 이벤트 선택, app.log 디버그 활성화, 폴더 열기, 로그 삭제를 할 수 있습니다. AI 연결 문제나 YAML 버튼 실패를 진단할 때 유용합니다.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← 사용자 가이드</a>
+      <a href="settings-ai.html">설정 → AI (상세) →</a>
+      <a href="custom-buttons.html">사용자 지정 버튼 (YAML) →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

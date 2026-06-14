@@ -1,0 +1,162 @@
+<h1>Settings</h1>
+    <p class="manual-lead">Settings opens as a full tab with a section list on the left and detail panels on the right. Configure hledger first, then accounts, toolbar buttons, and optional AI. Most sections persist to your user config folder (<code>~/.config/moni/</code> on Linux).</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>Sections</h2>
+      <ol>
+        <li><a href="#general">General</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#accounts">Accounts</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#advanced">Advanced</a></li>
+        <li><a href="#agents">AI Agents</a></li>
+        <li><a href="#buttons">Buttons</a></li>
+        <li><a href="#appearance">Appearance</a></li>
+        <li><a href="#backup">Backup</a></li>
+        <li><a href="#hledger">hledger</a></li>
+        <li><a href="#import">Import</a></li>
+        <li><a href="#logs">Logs</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings overview</span></div>
+        <figcaption>Section sidebar and active panel.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings → hledger</span></div>
+        <figcaption>Required paths before Moni can run reports.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Settings → Buttons</span></div>
+        <figcaption>Toolbar button list with yamlRef links.</figcaption>
+      </figure>
+    </div>
+
+    <section id="general" class="manual-section">
+      <h2>General</h2>
+      <p>UI language, startup behavior, and other app-wide preferences. Changing language reloads localized strings across tabs, modals, and Help topics where translations exist.</p>
+    </section>
+
+    <section id="ai" class="manual-section">
+      <h2>AI</h2>
+      <p>Choose an AI provider for Main → Chat: local <strong>llama.cpp</strong> or <strong>Ollama</strong> (data stays on your machine), or cloud <strong>OpenAI</strong>, <strong>Claude</strong>, or <strong>Gemini</strong>. Optional <strong>AI Wrapper</strong> connects to the Runable desktop wrapper for extension-based services.</p>
+      <p>Local AI includes binary/model download, server start/stop, GPU options, and hledger documentation RAG (retrieval-augmented generation) for grounded answers.</p>
+      <div class="manual-callout">
+        Full walkthrough: <a href="settings-ai.html">Settings → AI</a>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>AI provider dropdown</span></div>
+          <figcaption>Select None, llama.cpp, Ollama, OpenAI, Claude, or Gemini.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Local AI setup</span></div>
+          <figcaption>Download binary, model, start server.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Accounts</h2>
+      <p>Refresh the account tree from hledger, then choose which accounts appear on Main and Accounts. Add display profiles: institution name, masked account hints, icons, and sort order. Profiles also feed YAML transforms like <code>merge_account_profiles</code>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account visibility toggles</span></div>
+          <figcaption>Control which accounts show in the UI.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account profile editor</span></div>
+          <figcaption>Display name, icon, and institution metadata.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="mcp" class="manual-section">
+      <h2>MCP</h2>
+      <p>Configure Model Context Protocol server references Moni can use with supported AI setups. Add server definitions and connection details for tools that extend chat beyond built-in hledger help.</p>
+    </section>
+
+    <section id="advanced" class="manual-section">
+      <h2>Advanced</h2>
+      <p>Power-user options: custom config paths, experimental flags, and developer-oriented toggles. Change these only when you understand the impact on journal writes and AI behavior.</p>
+    </section>
+
+    <section id="agents" class="manual-section">
+      <h2>AI Agents</h2>
+      <p>Manage agent definitions (system prompts, tool access) used when Moni routes chat through agent profiles. Useful when you want separate personas for bookkeeping vs. general questions.</p>
+    </section>
+
+    <section id="buttons" class="manual-section">
+      <h2>Buttons</h2>
+      <p>Enable toolbar buttons and set each row’s <strong>yamlRef</strong> to a recipe id or YAML file path. Reorder rows to change toolbar layout on Main. See <a href="custom-buttons.html">Custom buttons (YAML)</a> for recipe authoring.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Button list</span></div>
+          <figcaption>Label, yamlRef, enabled checkbox per row.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="appearance" class="manual-section">
+      <h2>Appearance</h2>
+      <p>Theme (light/dark/system) and font size. Font size applies across tables, chat, and payee register dialogs for consistent readability.</p>
+    </section>
+
+    <section id="backup" class="manual-section">
+      <h2>Backup</h2>
+      <p>Automatic journal backups before Moni changes the journal file. Enable <strong>file backup</strong> (timestamped copy beside the journal or in a chosen directory) and/or <strong>git backup</strong> (commit in a repository). Use <strong>Backup now</strong> for a manual snapshot; restore from file or git history when needed.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Backup settings</span></div>
+          <figcaption>File and git backup toggles and paths.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Restore dialog</span></div>
+          <figcaption>Pick a prior backup to replace the current journal.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hledger" class="manual-section">
+      <h2>hledger</h2>
+      <p><strong>Required.</strong> Set the hledger binary path and main journal file (<code>-f</code>). Moni runs hledger for balances, registers, imports, and button recipes. Optional toggles: show copy-paste CLI under Ledger results, chat hledger autocomplete, and verify AI-suggested commands against your installed version.</p>
+      <p>A download helper can fetch a prebuilt hledger release for your platform when none is installed.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Binary + journal paths</span></div>
+          <figcaption>Core configuration every user needs.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Download hledger</span></div>
+          <figcaption>In-app installer for supported platforms.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Import</h2>
+      <p>CSV import rules directory, filename-to-rules mappings, Smart Import toggle, dry-run on drop, duplicate checks, archive directory, and overlap backup behavior. Moni resolves <code>bank.csv.rules</code> from the rules directory first, then beside the CSV file.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Import rules directory</span></div>
+          <figcaption>Where new wizard rules are saved by default.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Rule matching sources</span></div>
+          <figcaption>Map CSV filename globs to rules files.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="logs" class="manual-section">
+      <h2>Logs</h2>
+      <p>Moni writes <code>interaction.log</code> (chat and ledger panel) and <code>app.log</code> (startup, errors, debug). Configure the log directory, choose what interaction events to record, enable debug in app.log, open the folder, or delete logs. Useful when diagnosing AI connectivity or YAML button failures.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← User guide</a>
+      <a href="settings-ai.html">Settings → AI (detailed) →</a>
+      <a href="custom-buttons.html">Custom buttons (YAML) →</a>
+    </nav>

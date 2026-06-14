@@ -1,0 +1,330 @@
+<h1>自定义按钮 (YAML)</h1>
+    <p class="manual-lead">工具栏和账本工具由<strong>YAML 配方</strong>定义。设置 → 按钮 中的每个自定义按钮都通过 <code>yamlRef</code>（配方 id 或文件路径）指向一个配方。Moni 会加载 YAML，运行 hledger 或外部命令，并将结果渲染到 账本 面板中（表格或等宽文本）。</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>本页内容</h2>
+      <ol>
+        <li><a href="#where">配方存放位置</a></li>
+        <li><a href="#minimal">最小配方</a></li>
+        <li><a href="#delimited">分隔文本表格</a></li>
+        <li><a href="#multistep">多步骤配方</a></li>
+        <li><a href="#dates">默认日期</a></li>
+        <li><a href="#transforms">转换</a></li>
+        <li><a href="#sections">多个表格</a></li>
+        <li><a href="#external">外部程序</a></li>
+        <li><a href="#pipe">管道与空输出</a></li>
+        <li><a href="#placeholders">内置占位符</a></li>
+        <li><a href="#charts">可选图表</a></li>
+        <li><a href="#wire-up">在 设置 中接入</a></li>
+      </ol>
+    </nav>
+
+    <section id="where" class="manual-section">
+      <h2>配方存放位置</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>位置</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>~/.config/moni/custom_buttons/&lt;id&gt;.yaml</code></td><td>用户覆盖项（按 id 查找时优先级最高）</td></tr>
+          <tr><td><code>&lt;executable&gt;/custom_buttons/&lt;id&gt;.yaml</code></td><td>随 Moni 二进制文件一起提供</td></tr>
+          <tr><td>任何以 <code>.yaml</code> / <code>.yml</code> 结尾，或包含 <code>/</code> 的路径</td><td>被引用时直接加载</td></tr>
+        </tbody>
+      </table>
+      <p>在 设置 → 按钮 中，每一行都有一个 <strong>yamlRef</strong>：可以是配方 <strong>id</strong>（例如 <code>journal_check</code>），也可以是绝对/相对<strong>路径</strong>（例如 <code>~/recipes/my_tool.yaml</code>）。配方 id 必须符合 <code>^[a-zA-Z0-9][a-zA-Z0-9._-]*$</code>（不能包含 <code>..</code> 或斜杠）。</p>
+      <p>随应用提供的示例位于应用的 <code>custom_buttons/</code> 文件夹。你可以把其中一个复制到自己的配置目录中进行自定义，而无需重新构建 Moni。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>设置 → 按钮</span></div>
+          <figcaption>每一行包含：标签、yamlRef、启用开关。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>编辑器中的配方文件</span></div>
+          <figcaption>在 <code>~/.config/moni/custom_buttons/</code> 中编辑 YAML。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="minimal" class="manual-section">
+      <h2>最小配方：一个 hledger 命令</h2>
+      <p><code>hledger check</code> 在 journal 健康时不会产生任何输出。你可以显示一条友好的消息，而不是空白面板：</p>
+<pre class="manual-code"><code>id: journal_check
+
+meta:
+  name: Journal check
+  description: Run hledger check on the full journal.
+
+run:
+  mode: hledger
+  argv:
+    - check
+
+output:
+  plain_text: true
+  when_empty: "Everything is ok! No issues reported by hledger check."</code></pre>
+      <ul>
+        <li><strong>run.mode: hledger</strong> — Moni 会根据 设置 → hledger 运行 <code>hledger -f &lt;your journal&gt; …</code>。</li>
+        <li><strong>run.argv</strong> — 是 <code>-f &lt;journal&gt;</code> 之后的参数，而不是完整的 shell 命令行。</li>
+        <li><strong>output.plain_text: true</strong> — 以等宽文本显示 stdout/stderr。</li>
+        <li><strong>output.when_empty</strong> — 如果显示结果为空，则显示这段文字。</li>
+      </ul>
+    </section>
+
+    <section id="delimited" class="manual-section">
+      <h2>将按行输出解析为带样式的表格</h2>
+      <p><code>hledger stats</code> 会输出 <code>key: value</code> 形式的行。可以将其转换为两列表格：</p>
+<pre class="manual-code"><code>id: journal_stats
+
+meta:
+  name: Journal overview
+  description: hledger stats summary.
+
+run:
+  mode: hledger
+  argv:
+    - stats
+
+output:
+  delimited_text:
+    delimiter: ":"
+    hide_header: true
+    no_striping: true
+    column_align: [right, left]
+    column_widths: [30%, 1fr]
+    column_borders: true
+    column_styles:
+      - background: accent-24
+        bold: true
+      - {}</code></pre>
+      <p><strong>output.delimited_text</strong> 会在每个非空行首次出现 <code>delimiter</code> 的位置进行分割。除非你设置了 <code>columns</code>，否则默认列标题是 <code>Field</code> / <code>Value</code>。</p>
+    </section>
+
+    <section id="multistep" class="manual-section">
+      <h2>多步骤配方：运行 hledger、解析 CSV、显示表格</h2>
+      <p>大多数账本工具都使用 <strong>steps</strong>：每一步都有一个 <strong>id</strong>，运行 hledger，并可选择解析或转换结果。</p>
+<pre class="manual-code"><code>id: register_recent
+
+meta:
+  name: Recent activity
+  description: Register for a date range.
+
+ui:
+  modal:
+    when_empty:
+      period: ytd
+    fields:
+      - id: date_from
+        type: date
+        label_key: common.dateFrom
+        optional: true
+      - id: date_to
+        type: date
+        label_key: common.dateTo
+        optional: true
+
+steps:
+  - id: reg
+    run:
+      argv:
+        - register
+        - -p
+        - "{{period}}"
+        - -O
+        - csv
+    parse:
+      kind: hledger_register_csv
+
+output:
+  from_step: reg
+  table_view: register</code></pre>
+      <p><strong>流程：</strong>用户点击按钮 → 模态框收集日期 → Moni 构建 <code>{{period}}</code> → 步骤运行 <code>hledger … register -p &lt;period&gt; -O csv</code> → 解析器构建列 → <code>output.from_step</code> 选择该表 → <code>table_view: register</code> 启用寄存器样式下钻。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>模态日期选择器</span></div>
+          <figcaption>来自 <code>ui.modal.fields</code> 的模态字段。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>寄存器表格输出</span></div>
+          <figcaption>解析后的 CSV 被渲染为可交互寄存器。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="dates" class="manual-section">
+      <h2>模态框留空时的默认日期</h2>
+<pre class="manual-code"><code>ui:
+  modal:
+    when_empty:
+      period: lastyear
+    fields:
+      - id: date_from
+        type: date
+        optional: true
+      - id: date_to
+        type: date
+        optional: true</code></pre>
+      <p>如果配方使用 <code>{{period}}</code>，且用户将两个日期都留空，则会应用 <code>when_empty.period</code>。用户输入的日期始终优先。</p>
+      <table class="manual-table">
+        <thead><tr><th>令牌</th><th>范围</th></tr></thead>
+        <tbody>
+          <tr><td><code>lastyear</code></td><td>上一日历年</td></tr>
+          <tr><td><code>thisyear</code></td><td>当前日历年</td></tr>
+          <tr><td><code>thismonth</code></td><td>本月第一天 .. 今天</td></tr>
+          <tr><td><code>lastmonth</code></td><td>上一日历月</td></tr>
+          <tr><td><code>last30days</code></td><td>今天 − 30 天 .. 今天</td></tr>
+          <tr><td><code>ytd</code>, <code>yeartodate</code></td><td>1 月 1 日 .. 今天</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="transforms" class="manual-section">
+      <h2>转换：重塑 balance CSV</h2>
+      <p>常见模式是：<strong>run</strong> → <strong>parse</strong> <code>hledger_balance_csv</code> → <strong>transform</strong> → <strong>output</strong>。</p>
+<pre class="manual-code"><code>steps:
+  - id: csv
+    run:
+      argv:
+        - balance
+        - "^expenses:"
+        - -p
+        - "{{period}}"
+        - --flat
+        - -O
+        - csv
+    parse:
+      kind: hledger_balance_csv
+  - id: table
+    transform:
+      kind: flat_balance_table
+      source_step: csv
+
+output:
+  from_step: table</code></pre>
+      <p><strong>merge_account_profiles</strong> 会通过 设置 中的资料显示名称映射账户名。<strong>stacked_balance_reports</strong> 则会把两个 balance CSV 步骤合并为一个带分节标题的双列表格报表。</p>
+    </section>
+
+    <section id="sections" class="manual-section">
+      <h2>一个结果中包含多个表格</h2>
+      <p><strong>分离的分节</strong>（例如资产负债表）：</p>
+<pre class="manual-code"><code>output:
+  sections:
+    - title: Assets
+      from_step: assets_table
+    - title: Liabilities
+      from_step: liab_table</code></pre>
+      <p><strong>合并比较</strong>（每个账户一行，每个期间一列）：</p>
+<pre class="manual-code"><code>output:
+  merge_balance_sections: true
+  sections:
+    - title: "{{period_a}}"
+      from_step: table_a
+    - title: "{{period_b}}"
+      from_step: table_b</code></pre>
+      <p>可以在某个分节上添加 <code>when_empty</code>，以便在该分节没有行时显示占位消息。</p>
+    </section>
+
+    <section id="external" class="manual-section">
+      <h2>外部程序（不是 hledger）</h2>
+      <h3>可执行文件</h3>
+      <p><code>argv[0]</code> 是程序，后续条目是参数。运行前会先将模态值替换进 argv。</p>
+<pre class="manual-code"><code>run:
+  mode: executable
+  argv:
+    - /usr/bin/cal
+    - "{{month}}"
+    - "{{year}}"
+
+output:
+  plain_text: true</code></pre>
+      <h3>Shell</h3>
+      <p>将整个脚本作为一个字符串（Unix: <code>sh -c</code>；Windows: <code>cmd /C</code>）：</p>
+<pre class="manual-code"><code>run:
+  mode: shell
+  script: |
+    echo "Journal: $HLEDGER_JOURNAL"
+    wc -l "$HLEDGER_JOURNAL"</code></pre>
+      <p>环境变量包括 <code>HLEDGER_JOURNAL</code>、<code>HLEDGER_JOURNAL_FILE</code> 和 <code>MONI_TOOLS_DIR</code>。</p>
+    </section>
+
+    <section id="pipe" class="manual-section">
+      <h2>输出后处理：管道与空消息</h2>
+<pre class="manual-code"><code>output:
+  plain_text: true
+  pipe:
+    argv: ["grep", "-i", "error"]</code></pre>
+      <p><strong>output.when_empty</strong> 适用于经过管道处理后的整个结果。对于没有任何行的多步骤表格，它会显示你的消息，而不是空白网格。</p>
+      <p>argv 中的占位符会先被替换，然后空的 <code>-b</code>、<code>-e</code>、<code>-p</code>、<code>-f</code> 及其值会被移除，因此未使用时可选的期间/文件标志会自动消失。</p>
+    </section>
+
+    <section id="placeholders" class="manual-section">
+      <h2>内置查询辅助项</h2>
+      <p>如果 YAML 中包含这些占位符，Moni 会自动填充：</p>
+      <table class="manual-table">
+        <thead><tr><th>占位符</th><th>为空时会变成</th></tr></thead>
+        <tbody>
+          <tr><td><code>{{expense_query}}</code></td><td><code>^expenses</code> 或来自模态 <code>expense_leaf</code> 的 <code>expenses:&lt;leaf&gt;</code></td></tr>
+          <tr><td><code>{{balance_query}}</code></td><td><code>^income</code> 或来自模态 <code>customer</code> 的 <code>income:consulting:&lt;customer&gt;</code></td></tr>
+          <tr><td><code>{{tag_slice_query}}</code></td><td><code>^expenses:</code> 或来自模态 <code>tag</code> 的 <code>expenses tag:&lt;tag&gt;</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="charts" class="manual-section">
+      <h2>可选图表（pie、bar、line）</h2>
+      <p>在模态框中添加图表字段，并在 YAML 中配置 <code>output.chart</code>。标准模态字段如下：</p>
+<pre class="manual-code"><code>ui:
+  modal:
+    when_empty:
+      chart_display: "off"
+      chart_period: monthly
+    fields:
+      - id: chart_display
+        type: select
+        optional: true
+        options: ["off", "pie", "bar", "line"]
+      - id: chart_period
+        type: select
+        optional: true
+        options: [daily, monthly, yearly]
+
+output:
+  chart:
+    param: chart_display
+    period:
+      param: chart_period
+      argv_param: period_flag
+      when_kinds: [bar, line]
+      flags: { daily: "-D", monthly: "-M", yearly: "-Y" }
+    layouts:
+      bar: stacked_period
+      line: period_series
+      pie: category_totals</code></pre>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>图表 + 表格</span></div>
+          <figcaption>在账本表格上方显示饼图或柱状图。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>模态框中的图表类型</span></div>
+          <figcaption>用户在按钮模态框中选择图表类型。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wire-up" class="manual-section">
+      <h2>在 设置 中接入</h2>
+      <ol>
+        <li>将配方保存为 <code>~/.config/moni/custom_buttons/my_tool.yaml</code>，并确保顶层 <code>id:</code> 匹配。</li>
+        <li>打开 设置 → 按钮 → 添加或编辑一行。</li>
+        <li>将 <strong>yamlRef</strong> 设为 id（例如 <code>my_tool</code>）或完整路径。</li>
+        <li>启用按钮并返回 主页，它就会出现在工具栏中。</li>
+      </ol>
+      <div class="manual-callout">
+        应用安装包中自带的配方是一个不错的起点：复制一个到你的配置文件夹中，编辑后让 yamlRef 指向你的副本。
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← 用户指南</a>
+      <a href="settings.html">设置 概览 →</a>
+    </nav>

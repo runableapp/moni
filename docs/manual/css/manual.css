@@ -1,0 +1,302 @@
+/* Moni manual — extends ../css/style.css */
+
+.manual-page {
+  padding-top: 5rem;
+  min-height: 100vh;
+}
+
+.manual-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.manual-sidebar {
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(12px);
+}
+
+.manual-sidebar-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+
+.manual-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.manual-sidebar nav a {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.manual-sidebar nav a:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.manual-sidebar nav a.active {
+  color: var(--text);
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.manual-sidebar nav a.sub {
+  margin-left: 0.75rem;
+  font-size: 0.88rem;
+}
+
+.manual-back {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.manual-back:hover {
+  color: var(--accent);
+}
+
+.manual-content h1 {
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+
+.manual-lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 62ch;
+  margin: 0 0 2rem;
+  line-height: 1.65;
+}
+
+.manual-toc,
+.manual-inline-nav {
+  position: static;
+  width: auto;
+  z-index: auto;
+  backdrop-filter: none;
+  border-bottom: none;
+}
+
+.manual-toc {
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.manual-toc h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.manual-toc ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  columns: 2;
+  column-gap: 2rem;
+}
+
+.manual-toc li {
+  margin: 0.35rem 0;
+  break-inside: avoid;
+}
+
+.manual-toc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.manual-toc a:hover {
+  text-decoration: underline;
+}
+
+.manual-section {
+  margin-bottom: 3.5rem;
+  scroll-margin-top: 5.5rem;
+}
+
+.manual-section h2 {
+  font-size: 1.45rem;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.manual-section h3 {
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.manual-section p,
+.manual-section li {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.manual-section ul,
+.manual-section ol {
+  margin: 0.75rem 0;
+  padding-left: 1.35rem;
+}
+
+.manual-section > p {
+  max-width: 68ch;
+}
+
+.manual-callout {
+  margin: 1.25rem 0;
+  padding: 1rem 1.15rem;
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+  background: rgba(16, 185, 129, 0.08);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.manual-callout a {
+  color: var(--accent);
+}
+
+.shot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.shot-card {
+  margin: 0;
+}
+
+.shot-placeholder {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px dashed rgba(148, 163, 184, 0.25);
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.shot-placeholder .ph-icon {
+  font-size: 2rem;
+  opacity: 0.6;
+}
+
+.shot-card figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.manual-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.manual-table th,
+.manual-table td {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  text-align: left;
+}
+
+.manual-table th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.manual-table td {
+  color: var(--muted);
+}
+
+.manual-table code {
+  font-size: 0.85em;
+}
+
+pre.manual-code {
+  margin: 1rem 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(0, 0, 0, 0.35);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+}
+
+pre.manual-code code {
+  font-family: inherit;
+}
+
+.manual-inline-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.manual-inline-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.manual-inline-nav a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+  .manual-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .manual-sidebar {
+    position: static;
+  }
+
+  .manual-toc ol {
+    columns: 1;
+  }
+}

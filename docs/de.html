@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moni — KI-Ledger-Begleiter für hledger</title>
+  <meta name="description" content="Moni ist ein lokaler Desktop-Begleiter für private und kleine Geschäfts-Buchhaltung mit hledger.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="#" class="brand">
+      <img src="i/moni-wave.webp" alt="Moni-Logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Sprachauswahl" title="Sprache ändern" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇩🇪</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Sprachauswahl">
+          <a href="index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="ko.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="zh.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="ja.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="es.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="de.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="fr.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="manual/de/index.html">Handbuch</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#license">Lizenz</a></li>
+      <li><a href="#download" class="nav-cta">Moni holen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="hero-badge">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Lokal zuerst · KI-bereit</span>
+    </div>
+    <h1>
+      <span>Modern Output,</span><br>
+      <span class="gradient">Neuronale Einblicke</span><br>
+      <span>für Ihre Finanzen</span>
+    </h1>
+    <p class="subtitle">Ein Desktop-Begleiter für private und kleine Geschäfts-Ledger mit hledger. Berichte und Kontenregister auf der einen Seite, optionaler KI-Chat auf der anderen — Ihr Journal bleibt Klartext auf Ihrem Rechner.</p>
+    <div class="hero-meta">
+      <span>Linux</span>
+      <span>Windows</span>
+      <span>macOS</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-card">
+      <img class="graph" src="i/graph.webp" alt="">
+      <div class="moni-wrap">
+        <img src="i/moni-standing.webp" alt="Moni-Maskottchen">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pta" class="pta-section alt">
+  <div class="pta-grid">
+    <div class="pta-copy">
+      <p class="section-label">Grundlage</p>
+      <h2 class="section-title">Klartext-Buchhaltung & hledger</h2>
+      <p>Plain-Text-Accounting (PTA) hält Ihr Ledger als lesbare Textdateien — datierte Buchungen und Kontenposten, die Sie in jedem Editor öffnen, mit Git sichern und per Skript automatisieren können. Keine proprietäre Datenbank, die Sie einsperrt.</p>
+      <p><a href="https://hledger.org/">hledger</a> ist ein schnelles, zuverlässiges Kommandozeilen-Tool, das diese Journaldateien liest und Salden, Kontenregister und Berichte erzeugt. Moni verpackt hledger in eine moderne Desktop-Oberfläche — gleiche Daten, gleiche Kraft, im Alltag leichter zu nutzen.</p>
+      <p>Weil alles Klartext und Standard-CLI-Befehle sind, lässt sich hledger sauber in Ihre Toolchain einbinden — grep, git, Python, Tabellen, Cron und KI-Skripte können Ihr Journal ohne Spezialexport lesen oder verarbeiten. Diese Stärke hat eine Lernkurve: Flags, Abfragen und Berichtssyntax brauchen Zeit.</p>
+      <p>Moni behält dasselbe Journal und dieselbe hledger-Engine, erleichtert aber die tägliche Arbeit — Ein-Klick-Buttons für wiederkehrende Befehle, eingebaute Diagramme für visuelle Übersichten und eine voll funktionsfähige hledger-web-ähnliche Browse-Oberfläche für Konten, Register und Berichte. GUI für Tempo, CLI jederzeit für volle Kontrolle.</p>
+    </div>
+    <div class="journal-card">
+      <div class="journal-card-header">Beispiel-Journalbuchung</div>
+      <pre class="journal-snippet">2025-03-15 * Coffee shop
+    expenses:food:coffee        $4.50
+    assets:checking:cash       $-4.50</pre>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <p class="section-label">Funktionen</p>
+    <h2 class="section-title">CLI-Power. GUI-Klarheit. Ihre Daten.</h2>
+    <p class="section-desc">Moni verpackt hledger in eine moderne Desktop-App mit anpassbaren Shortcuts, Import-Tools und optionalem KI-Copilot — ohne Ihr Ledger in einer fremden Cloud zu sperren.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">⚡</div>
+        <h3>hledger-basiert</h3>
+        <p>Salden, Konten, Buchungen und Berichte über Ihr konfiguriertes hledger-Binary und Journaldateien.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏠</div>
+        <h3>Lokal zuerst</h3>
+        <p>Ledger leben als Dateien auf Ihrem Rechner. Sichern, vergleichen und versionieren wie bei Code.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🧠</div>
+        <h3>KI-Copilot</h3>
+        <p>Fragen stellen, Buchungen erklären und Aktionen entwerfen. Lokale Modelle mit llama.cpp oder Ollama für Datenschutz — oder bei Bedarf Cloud-KI wie OpenAI, Claude oder Gemini.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔒</div>
+        <h3>Datenschutz standardmäßig</h3>
+        <p>Kein zentrales SaaS-Ledger. Cloud-KI nur mit Ihren eigenen API-Schlüsseln.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🎛</div>
+        <h3>Eigene Buttons</h3>
+        <p>Schnellzugriff-Werkzeugleiste für Ihre hledger-Workflows — anpassbar per YAML-Rezepte.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📥</div>
+        <h3>Import & Export</h3>
+        <p>CSV-Import und interaktive Funktionen zum Prüfen, Hinzufügen oder Bearbeiten von Buchungen.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📈</div>
+        <h3>Berichte & Register</h3>
+        <p>Interaktive Register, Bilanzen und Diagramme — das volle hledger-Toolkit in freundlicher Oberfläche.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🛡</div>
+        <h3>Standardmäßig schreibgeschützt</h3>
+        <p>Journal-Schreibvorgänge sind opt-in und protokolliert. Sicher erkunden vor Änderungen.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌐</div>
+        <h3>Mehrsprachige Oberfläche</h3>
+        <p>Vollständige Oberfläche in sieben Sprachen. Hilfe und Chat folgen Ihrer Locale.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💻</div>
+        <h3>Plattformübergreifend</h3>
+        <p>Läuft nativ unter Linux, Windows und macOS — überall dieselbe Erfahrung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="video" class="alt">
+  <div class="container">
+    <p class="section-label">Ansehen</p>
+    <h2 class="section-title">Moni in Aktion</h2>
+    <p class="section-desc">Ein Rundgang durch Ledger-Panel, KI-Chat, Berichte und Alltags-Workflows.</p>
+    <div class="video-wrap" id="video-wrap" data-youtube-id="">
+      <div class="video-placeholder">
+        <div class="play-ring" aria-hidden="true">▶</div>
+        <p>YouTube-Video — demnächst</p>
+        <p class="small" style="font-size:0.82rem; opacity:0.7;">data-youtube-id auf #video-wrap setzen, wenn bereit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="container">
+    <p class="section-label">Screenshots</p>
+    <h2 class="section-title">Für tägliche Ledger-Arbeit</h2>
+    <p class="section-desc">Hauptarbeitsbereich, KI-Chat, Berichte und Einstellungen.</p>
+    <div class="carousel">
+      <button type="button" class="carousel-btn prev" aria-label="Vorheriger Screenshot">‹</button>
+      <div class="carousel-frame">
+        <div class="carousel-slide active">
+          <div class="slide-placeholder">
+            <span class="ph-icon">🖥</span>
+            <span>Screenshot-Platzhalter</span>
+          </div>
+          <p class="slide-caption">Hauptarbeitsbereich — Ledger-Panel & Toolbar</p>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">
+            <span class="ph-icon">💬</span>
+            <span>Screenshot-Platzhalter</span>
+          </div>
+          <p class="slide-caption">Moni fragen — KI-Chat mit Journal-Kontext</p>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">
+            <span class="ph-icon">📊</span>
+            <span>Screenshot-Platzhalter</span>
+          </div>
+          <p class="slide-caption">Berichte — Salden, Diagramme & Register</p>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">
+            <span class="ph-icon">⚙️</span>
+            <span>Screenshot-Platzhalter</span>
+          </div>
+          <p class="slide-caption">Einstellungen — hledger, KI und Erscheinungsbild</p>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">
+            <span class="ph-icon">📥</span>
+            <span>Screenshot-Platzhalter</span>
+          </div>
+          <p class="slide-caption">Import — CSV und Datentools</p>
+        </div>
+      </div>
+      <button type="button" class="carousel-btn next" aria-label="Nächster Screenshot">›</button>
+      <div class="carousel-dots" role="tablist" aria-label="Screenshot-Navigation"></div>
+    </div>
+  </div>
+</section>
+
+<section id="languages" class="alt">
+  <div class="container">
+    <p class="section-label">Sprachen</p>
+    <h2 class="section-title">Spricht Ihre Sprache</h2>
+    <p class="section-desc">Moni liefert eine vollständig lokalisierte Oberfläche in diesen Sprachen:</p>
+    <div class="lang-grid">
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></span>
+      <span class="lang-chip"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></span>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="container">
+    <p class="section-label">Download</p>
+    <h2 class="section-title">Moni holen</h2>
+    <p class="section-desc">Kostenlos herunterladen. Für alle gängigen Desktop-Plattformen.</p>
+    <div class="download-grid">
+      <div class="download-card coming-soon">
+        <div class="dl-icon" aria-hidden="true"><img src="i/os-linux.png" alt="Linux"></div>
+        <h3>Linux</h3>
+        <p>Portable Build. AppImage und Tarball demnächst.</p>
+        <span class="format">Demnächst ↓</span>
+      </div>
+      <div class="download-card coming-soon">
+        <div class="dl-icon" aria-hidden="true"><img src="i/os-windows.png" alt="Windows"></div>
+        <h3>Windows</h3>
+        <p>Installer mit Startmenü-Verknüpfung. Demnächst.</p>
+        <span class="format">Demnächst ↓</span>
+      </div>
+      <div class="download-card coming-soon">
+        <div class="dl-icon" aria-hidden="true"><img src="i/os-apple.png" alt="macOS"></div>
+        <h3>macOS</h3>
+        <p>Drag-and-Drop-DMG-Installer. Demnächst.</p>
+        <span class="format">Demnächst ↓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="license" class="alt">
+  <div class="container">
+    <p class="section-label">Lizenz</p>
+    <h2 class="section-title">Urheberrechtshinweis</h2>
+    <div class="license-box">
+      <p>Copyright © 2026 <a href="https://runable.app">Runable.app</a>. Alle Rechte vorbehalten.</p>
+      <p>[Donationware-/Honorware-Lizenzbedingungen erscheinen hier.]</p>
+      <p>Ausführliche Lizenzbedingungen werden hier veröffentlicht.</p>
+    </div>
+    <div class="thankyou-wrap">
+      <img src="i/runable-thankyou-midsize.webp" alt="Danke von Runable.app">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="https://runable.app">Runable.app</a>. Alle Rechte vorbehalten.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  (function () {
+    var wrap = document.getElementById("video-wrap");
+    if (!wrap) return;
+    var id = (wrap.getAttribute("data-youtube-id") || "").trim();
+    if (!id) return;
+    wrap.classList.add("has-video");
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0";
+    iframe.title = "Moni demo video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    wrap.appendChild(iframe);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<h1>設定 → AI</h1>
+    <p class="manual-lead">メイン → チャット はここで選択したプロバイダーを使います。<strong>ローカル優先</strong>の選択肢（llama.cpp、Ollama）は、journal とメッセージを自分のマシン上に保ちます。クラウドプロバイダーはチャット内容を各社の API に送信するため、そのトレードオフを受け入れられる場合にのみ使用してください。準備ができるまでチャットを無効にしたい場合は <strong>なし</strong> を選びます。</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>このページの内容</h2>
+      <ol>
+        <li><a href="#providers">プロバイダーを選ぶ</a></li>
+        <li><a href="#local">ローカル AI (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">クラウドプロバイダー</a></li>
+        <li><a href="#wrapper">AI Wrapper</a></li>
+        <li><a href="#rag">hledger ドキュメント (RAG)</a></li>
+        <li><a href="#chat">チャットの動作</a></li>
+        <li><a href="#troubleshoot">トラブルシューティング</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 → AI パネル</span></div>
+        <figcaption>AI セクション上部のプロバイダードロップダウンです。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ローカル AI セットアップウィザード</span></div>
+        <figcaption>ローカル AI のセットアップ: バイナリ、モデル、サーバー。</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>AI 有効時のチャット</span></div>
+        <figcaption>プロバイダー接続後の メイン タブのチャットです。</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>プロバイダーを選ぶ</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>プロバイダー</th><th>プライバシー</th><th>主な用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>なし</strong></td><td>チャット無効</td><td>台帳のみのワークフロー</td></tr>
+          <tr><td><strong>ローカル llama.cpp</strong></td><td>完全ローカル</td><td>管理サーバー、モデルダウンロード、GPU 対応</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>ローカル（Ollama デーモン）</td><td>すでに Ollama モデルを使っている場合</td></tr>
+          <tr><td><strong>OpenAI / Claude / Gemini</strong></td><td>クラウド API</td><td>ローカルハードウェアが限られる場合に強力なモデルを利用</td></tr>
+          <tr><td><strong>AI Wrapper</strong></td><td>Runable デスクトップアプリ経由</td><td>外部サービス向けの拡張または Electron ブリッジ</td></tr>
+        </tbody>
+      </table>
+      <p>プロバイダーを変更した後、チャットが応答しない場合は、AI パネルの接続確認（ステータスインジケーター）と 📜 <strong>ログ</strong> ボタンを使ってください。</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>ローカル AI (llama.cpp)</h2>
+      <p>Moni は <strong>llama-server</strong> バイナリと GGUF モデルをダウンロードし、<code>127.0.0.1</code> 上のサーバープロセス（ポート 8081–8299）を管理できます。初回の推奨手順は、<strong>ローカル AI をセットアップ</strong> をクリックするか、バイナリとモデルを個別にダウンロードした後で <strong>サーバーを起動</strong> を押すことです。</p>
+
+      <h3>主なコントロール</h3>
+      <ul>
+        <li><strong>使用するモデル</strong> — 同梱プリセットを選ぶか、別の GGUF ファイルを指定します。サーバー実行中にモデルを変更すると、再起動を求められることがあります。</li>
+        <li><strong>利用可能な場合は GPU を使用</strong> — GPU 対応の llama-server ビルドが必要です。特定の GPU デバイス、または “All GPUs” を選べます。</li>
+        <li><strong>モデルの推論を無効化</strong> — チャットでは推奨です。<code>--reasoning off</code> を渡して、返答がパネルに表示されるようにします（Qwen 3 のような “thinking” モデルで必要）。</li>
+        <li><strong>再起動なしでモデル切替（ルーターモード）</strong> — 複数モデルの <code>--models-dir</code> レイアウトを使う場合、完全再起動なしでモデルを切り替えます。</li>
+        <li><strong>起動時にローカル AI を自動開始</strong> — アプリ読み込み後に管理対象サーバーを起動します（バイナリとモデルは事前にインストール済みである必要があります）。</li>
+        <li><strong>チャット reply length / timeout</strong> — 低速なハードウェア向けにトークン数と待ち時間を制限します。</li>
+        <li><strong>バイナリディレクトリ / モデルディレクトリ</strong> — 既定パスを上書きします。<strong>パスをデフォルトにリセット</strong> で同梱レイアウトに戻せます。</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>llama.cpp サーバー操作</span></div>
+          <figcaption>開始/停止、モデル選択、GPU トグル。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ダウンロード進行状況</span></div>
+          <figcaption>到着予想時間付きのバイナリまたは GGUF ダウンロードです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>サーバー診断</span></div>
+          <figcaption>準備完了 LED、ログ末尾、診断バンドルのコピー。</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        Moni 管理のサーバーは localhost の 8081 から 8299 までのうち、最初に空いているポートへバインドされます。ポートはプロセス識別情報とともに保存されるため、Moni は再起動後に再接続できます。
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>実行中の Ollama インスタンス（既定の localhost base URL）を Moni に指定します。Ollama が公開している一覧からモデルを選択します。チャットを始める前に、Ollama がインストール済みで、モデルが取得済み（<code>ollama pull …</code>）であることを確認してください。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ollama モデル一覧</span></div>
+          <figcaption>Ollama デーモンで利用可能なモデルです。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>クラウドプロバイダー (OpenAI, Claude, Gemini)</h2>
+      <p>API キーを入力します（ローカル設定に保存されます）。パネルに表示されるモデルや、各プロバイダー固有のオプションを選択できます。クラウドチャットはローカル GPU を必要としませんが、会話内容をベンダーの API に送るため、外部共有できない journal には使用しないでください。</p>
+      <p>関連する hledger 設定（設定 → hledger 配下）: <strong>AI 返信の hledger コマンドを検証</strong> は、Run を押す前に、バージョン一致の complist とあなたのバイナリに照らしてアシスタントの例をチェックします。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>API キー入力欄</span></div>
+          <figcaption>プロバイダー資格情報（UI ではマスク表示）。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>モデル選択</span></div>
+          <figcaption>選択したクラウドプロバイダー向けのモデル階層を選びます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>AI Wrapper（実験的）</h2>
+      <p>同じマシン上で動作する Runable <strong>AI Wrapper</strong> デスクトップアプリに接続します。AI Wrapper → API でクライアントを登録し、Preferences でサービスを有効化してから、登録トークンを Moni に貼り付けます。サービス、モード（Electron のアプリ内 webview または Chrome 拡張）、クライアントラベルを選択し、<strong>接続</strong> をクリックして利用可能なサービスを一覧表示します。</p>
+      <p>コンパニオンアプリが未インストールの場合、AI Wrapper へのアクセスについて Runable.app にお問い合わせください。</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>hledger ドキュメント (RAG)</h2>
+      <p>Moni は hledger ドキュメントを埋め込むことで、ローカル AI の回答が正しいフラグや概念を参照できるようにします。AI パネルのステータス行には次が表示されます:</p>
+      <ul>
+        <li><strong>利用不可（ローカル AI では任意）。</strong> — ローカル AI では任意です。クラウドはこれがなくても動作する場合があります。</li>
+        <li><strong>ステータス: ディスク上のファイル。最初の AI メッセージ時にメモリに読み込まれます（すべてのプロバイダー）。</strong> — ドキュメント索引が存在し、最初のメッセージ送信時に読み込まれます。</li>
+        <li><strong>準備完了 — N 個のドキュメントチャンク。</strong> — 根拠付き応答のための検索が有効です。</li>
+      </ul>
+      <p>パス、検索順序、complist の詳細は、設定 → ログ → デバッグ の <code>app.log</code>、または AI パネルのプロバイダー 📜 ログ ボタンを確認してください。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>RAG ステータス行</span></div>
+          <figcaption>AI プロバイダー設定の下に表示される hledger ドキュメントの準備状態です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>メイン でのチャット動作</h2>
+      <p>プロバイダーを接続したら、メイン → チャット に入力します。Moni は実行可能な hledger コマンドを提案することがあり、Enter を押すかコントロールを使って 台帳 パネルで実行できます。自動補完（設定 → hledger）が有効な場合、hledger argv を入力すると候補ポップオーバーが表示され、Ctrl+H で入力行から hledger を実行できます。</p>
+      <p>インタラクションログ（設定 → ログ）では、ユーザー入力、AI 会話、台帳パネルの結果を、自分用の監査記録として保存できます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>チャットでの hledger 提案</span></div>
+          <figcaption>チャット内での hledger コマンド自動補完です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>チャットからコマンド実行</span></div>
+          <figcaption>アシスタント提案のコマンドが 台帳 パネルで実行されます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>トラブルシューティング</h2>
+      <ul>
+        <li><strong>OpenAI 互換 API に接続できません。</strong> — llama.cpp の場合は サーバーを起動 が成功したか確認してください。診断 LED からサーバーログを開けます。localhost がファイアウォールで遮断されていないことも確認してください。</li>
+        <li><strong>Wrong GPU build</strong> — CPU 専用バイナリでは GPU トグルは使えません。GPU 対応の llama-server 版をダウンロードまたはインストールしてください。</li>
+        <li><strong>Empty or “thinking” replies</strong> — <strong>モデルの推論を無効化</strong> を有効にして、サーバーを再起動してください。</li>
+        <li><strong>Cloud errors</strong> — API キー、モデル名、ネットワークを確認し、HTTP ステータスは 📜 ログ で確認してください。</li>
+        <li><strong>RAG not loading</strong> — app.log のデバッグ行を確認してください。索引の読み込み中は最初のチャットが長くかかる場合があります。</li>
+      </ul>
+      <p>問題を報告する際は、llama.cpp の<strong>diagnostics bundle</strong>（状態 + ログ末尾）をコピーしてください。journal を公開せずに、サポートに必要な情報を一通り含められます。</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← 設定 概要</a>
+      <a href="index.html">ユーザーガイド →</a>
+    </nav>

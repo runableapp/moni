@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Einstellungen — Moni-Handbuch</title>
+  <meta name="description" content="Überblick über Moni-Einstellungen: hledger, Konten, KI, Schaltflächen, Import, Backup, Erscheinungsbild, Protokolle.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../de.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Sprachauswahl" title="Sprache ändern" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇩🇪</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Sprachauswahl">
+          <a href="../settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="settings.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/settings.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../de.html">Start</a></li>
+      <li><a href="index.html" class="nav-cta">Handbuch</a></li>
+      <li><a href="../../feedback.html">Feedback</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni-Handbuch</p>
+    <nav>
+      <a href="index.html">Benutzerhandbuch</a>
+      <a href="custom-buttons.html">Eigene Schaltflächen (YAML)</a>
+      <a href="settings.html" class="active">Einstellungen</a>
+      <a href="settings-ai.html" class="sub">Einstellungen → KI</a>
+    </nav>
+    <a href="../../de.html" class="manual-back">← Zurück zur Moni-Startseite</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>Einstellungen</h1>
+    <p class="manual-lead">Einstellungen opens as a full tab with a section list on the left and detail panels on the right. Configure hledger first, then accounts, toolbar buttons, and optional KI. Most sections persist to your user config folder (<code>~/.config/moni/</code> on Linux).</p>
+
+    <nav class="manual-toc" aria-label="Auf dieser Seite">
+      <h2>Abschnitte</h2>
+      <ol>
+        <li><a href="#general">Allgemein</a></li>
+        <li><a href="#ai">KI</a></li>
+        <li><a href="#accounts">Konten</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#advanced">Erweitert</a></li>
+        <li><a href="#agents">KI-Agenten</a></li>
+        <li><a href="#buttons">Schaltflächen</a></li>
+        <li><a href="#appearance">Erscheinungsbild</a></li>
+        <li><a href="#backup">Sicherung</a></li>
+        <li><a href="#hledger">hledger</a></li>
+        <li><a href="#import">Import</a></li>
+        <li><a href="#logs">Protokolle</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen overview</span></div>
+        <figcaption>Section sidebar and active panel.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen → hledger</span></div>
+        <figcaption>Required paths before Moni can run reports.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen → Schaltflächen</span></div>
+        <figcaption>Toolbar button list with yamlRef links.</figcaption>
+      </figure>
+    </div>
+
+    <section id="general" class="manual-section">
+      <h2>Allgemein</h2>
+      <p>UI language, startup behavior, and other app-wide preferences. Changing language reloads localized strings across tabs, modals, and Hilfe topics where translations exist.</p>
+    </section>
+
+    <section id="ai" class="manual-section">
+      <h2>KI</h2>
+      <p>Choose an KI-Anbieter for Übersicht → Chat: local <strong>llama.cpp</strong> or <strong>Ollama</strong> (data stays on your machine), or cloud <strong>OpenKI</strong>, <strong>Claude</strong>, or <strong>Gemini</strong>. Optional <strong>KI Wrapper</strong> connects to the Runable desktop wrapper for extension-based services.</p>
+      <p>Local KI includes binary/model download, server start/stop, GPU options, and hledger documentation RAG (retrieval-augmented generation) for grounded answers.</p>
+      <div class="manual-callout">
+        Full walkthrough: <a href="settings-ai.html">Einstellungen → KI</a>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>KI-Anbieter dropdown</span></div>
+          <figcaption>Select Keiner, llama.cpp, Ollama, OpenKI, Claude, or Gemini.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Local KI setup</span></div>
+          <figcaption>Download binary, model, start server.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Konten</h2>
+      <p>Refresh the account tree from hledger, then choose which accounts appear on Übersicht and Konten. Add display profiles: institution name, masked account hints, icons, and sort order. Profiles also feed YAML transforms like <code>merge_account_profiles</code>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account visibility toggles</span></div>
+          <figcaption>Control which accounts show in the UI.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Account profile editor</span></div>
+          <figcaption>Display name, icon, and institution metadata.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="mcp" class="manual-section">
+      <h2>MCP</h2>
+      <p>Configure Model Context Protocol server references Moni can use with supported KI setups. Add server definitions and connection details for tools that extend chat beyond built-in hledger help.</p>
+    </section>
+
+    <section id="advanced" class="manual-section">
+      <h2>Erweitert</h2>
+      <p>Power-user options: custom config paths, experimental flags, and developer-oriented toggles. Change these only when you understand the impact on journal writes and KI behavior.</p>
+    </section>
+
+    <section id="agents" class="manual-section">
+      <h2>KI-Agenten</h2>
+      <p>Manage agent definitions (system prompts, tool access) used when Moni routes chat through agent profiles. Useful when you want separate personas for bookkeeping vs. general questions.</p>
+    </section>
+
+    <section id="buttons" class="manual-section">
+      <h2>Schaltflächen</h2>
+      <p>Enable toolbar buttons and set each row’s <strong>yamlRef</strong> to a recipe id or YAML file path. Reorder rows to change toolbar layout on Übersicht. See <a href="custom-buttons.html">Eigene Schaltflächen (YAML)</a> for recipe authoring.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Button list</span></div>
+          <figcaption>Label, yamlRef, enabled checkbox per row.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="appearance" class="manual-section">
+      <h2>Erscheinungsbild</h2>
+      <p>Theme (light/dark/system) and font size. Font size applies across tables, chat, and payee register dialogs for consistent readability.</p>
+    </section>
+
+    <section id="backup" class="manual-section">
+      <h2>Sicherung</h2>
+      <p>Automatic journal backups before Moni changes the journal file. Enable <strong>file backup</strong> (timestamped copy beside the journal or in a chosen directory) and/or <strong>git backup</strong> (commit in a repository). Use <strong>Jetzt sichern</strong> for a manual snapshot; restore from file or git history when needed.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Sicherung settings</span></div>
+          <figcaption>File and git backup toggles and paths.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Restore dialog</span></div>
+          <figcaption>Pick a prior backup to replace the current journal.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hledger" class="manual-section">
+      <h2>hledger</h2>
+      <p><strong>Required.</strong> Set the hledger binary path and main journal file (<code>-f</code>). Moni runs hledger for balances, registers, imports, and button recipes. Optional toggles: show copy-paste CLI under Ledger results, chat hledger autocomplete, and verify KI-suggested commands against your installed version.</p>
+      <p>A download helper can fetch a prebuilt hledger release for your platform when none is installed.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Binary + journal paths</span></div>
+          <figcaption>Core configuration every user needs.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Download hledger</span></div>
+          <figcaption>In-app installer for supported platforms.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Import</h2>
+      <p>CSV import rules directory, filename-to-rules mappings, Intelligenter Import toggle, dry-run on drop, duplicate checks, archive directory, and overlap backup behavior. Moni resolves <code>bank.csv.rules</code> from the rules directory first, then beside the CSV file.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Import rules directory</span></div>
+          <figcaption>Where new wizard rules are saved by default.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Rule matching sources</span></div>
+          <figcaption>Map CSV filename globs to rules files.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="logs" class="manual-section">
+      <h2>Protokolle</h2>
+      <p>Moni writes <code>interaction.log</code> (chat and ledger panel) and <code>app.log</code> (startup, errors, debug). Configure the log directory, choose what interaction events to record, enable debug in app.log, open the folder, or delete logs. Useful when diagnosing KI connectivity or YAML button failures.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="index.html">← Benutzerhandbuch</a>
+      <a href="settings-ai.html">Einstellungen → KI (detailed) →</a>
+      <a href="custom-buttons.html">Eigene Schaltflächen (YAML) →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

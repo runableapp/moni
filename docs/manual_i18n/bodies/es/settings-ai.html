@@ -1,0 +1,166 @@
+<h1>Configuración → IA</h1>
+    <p class="manual-lead">Principal → Chat usa el proveedor seleccionado aquí. Las opciones <strong>locales primero</strong> (llama.cpp, Ollama) mantienen el diario y los mensajes en tu máquina. Los proveedores en la nube envían el chat a sus API — úsalos solo si aceptas esa compensación. Elige <strong>Ninguno</strong> para desactivar el chat hasta que estés listo.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>En esta página</h2>
+      <ol>
+        <li><a href="#providers">Elegir proveedor</a></li>
+        <li><a href="#local">IA local (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">Proveedores en la nube</a></li>
+        <li><a href="#wrapper">IA Wrapper</a></li>
+        <li><a href="#rag">Documentación hledger (RAG)</a></li>
+        <li><a href="#chat">Comportamiento del chat</a></li>
+        <li><a href="#troubleshoot">Resolución de problemas</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Panel Configuración → IA</span></div>
+        <figcaption>Menú de proveedor en la parte superior de la sección IA.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Asistente de IA local</span></div>
+        <figcaption>Configura IA local: binario, modelo, servidor.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chat con IA activada</span></div>
+        <figcaption>Chat en Principal tras conectar un proveedor.</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>Elegir proveedor</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Proveedor</th><th>Privacidad</th><th>Uso típico</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Ninguno</strong></td><td>Chat desactivado</td><td>Solo libro mayor</td></tr>
+          <tr><td><strong>llama.cpp local</strong></td><td>Totalmente local</td><td>Servidor gestionado, descarga de modelo, soporte GPU</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>Local (daemon Ollama)</td><td>Si ya ejecutas modelos Ollama</td></tr>
+          <tr><td><strong>OpenIA / Claude / Gemini</strong></td><td>API en la nube</td><td>Modelos potentes con hardware local limitado</td></tr>
+          <tr><td><strong>IA Wrapper</strong></td><td>Vía app de escritorio Runable</td><td>Puente de extensión o Electron a servicios externos</td></tr>
+        </tbody>
+      </table>
+      <p>Tras cambiar de proveedor, usa la comprobación de conectividad (indicador de estado) y el botón 📜 <strong>Registros</strong> del panel IA si el chat no responde.</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>IA local (llama.cpp)</h2>
+      <p>Moni puede descargar un binario <strong>llama-server</strong> y un modelo GGUF, y gestionar el proceso del servidor en <code>127.0.0.1</code> (puertos 8081–8299). Flujo recomendado la primera vez: pulsa <strong>Set up local IA</strong> o descarga binario y modelo por separado, luego <strong>Iniciar servidor</strong>.</p>
+
+      <h3>Controles clave</h3>
+      <ul>
+        <li><strong>Modelo a usar</strong> — elige un ajuste predefinido u otro archivo GGUF. Cambiar el modelo con el servidor en marcha puede pedir reinicio.</li>
+        <li><strong>Usar GPU si está disponible</strong> — requiere una compilación llama-server con GPU; elige un dispositivo GPU o «All GPUs».</li>
+        <li><strong>Desactivar razonamiento del modelo</strong> — recomendado para chat; pasa <code>--reasoning off</code> para que las respuestas aparezcan en el panel (necesario para Qwen 3 y modelos «thinking» similares).</li>
+        <li><strong>Cambiar modelo sin reiniciar (modo router)</strong> — cambia modelos sin reinicio completo con un diseño <code>--models-dir</code> multi-modelo.</li>
+        <li><strong>Auto-start local IA on launch</strong> — inicia el servidor gestionado tras cargar la app (binario y modelo ya instalados).</li>
+        <li><strong>Chat reply length / timeout</strong> — limita tokens y tiempo de espera en hardware lento.</li>
+        <li><strong>Directorio del binario / Directorio de modelos</strong> — sobrescribe rutas por defecto; <strong>Restablecer rutas a valores predeterminados</strong> restaura el diseño incluido.</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Controles servidor llama.cpp</span></div>
+          <figcaption>Inicio/parada, selector de modelo, interruptores GPU.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Progreso de descarga</span></div>
+          <figcaption>Descarga de binario o GGUF con ETA.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Diagnósticos del servidor</span></div>
+          <figcaption>LED de estado, cola de log, copiar paquete de diagnósticos.</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        El servidor gestionado por Moni usa el primer puerto libre en localhost de 8081 a 8299. El puerto se guarda con la identidad del proceso para que Moni se reconecte tras reiniciar.
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>Apunta Moni a tu instancia Ollama en ejecución (URL base por defecto en localhost). Selecciona un modelo de la lista que expone Ollama. Asegúrate de que Ollama esté instalado y el modelo descargado (<code>ollama pull …</code>) antes de chatear.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Lista de modelos Ollama</span></div>
+          <figcaption>Modelos disponibles en tu daemon Ollama.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>Proveedores en la nube (OpenIA, Claude, Gemini)</h2>
+      <p>Introduce tu clave API (guardada en configuración local). Elige modelo y opciones del proveedor en el panel. El chat en la nube no requiere GPU local pero envía el contenido de la conversación a la API del proveedor — no lo uses para diarios que no puedas compartir externamente.</p>
+      <p>Ajustes hledger relacionados (Configuración → hledger): <strong>Verificar comandos hledger en respuestas de IA</strong> valida ejemplos del asistente contra la complist de tu versión y tu binario antes de pulsar Run.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Campo de clave API</span></div>
+          <figcaption>Credenciales del proveedor (enmascaradas en la interfaz).</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Selección de modelo</span></div>
+          <figcaption>Elige el nivel de modelo del proveedor en la nube.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>IA Wrapper (experimental)</h2>
+      <p>Se conecta a la aplicación de escritorio Runable <strong>IA Wrapper</strong> en la misma máquina. Registra un cliente en IA Wrapper → API, activa servicios en Preferences y pega el token de registro en Moni. Elige servicio, modo (webview Electron o extensión Chrome) y etiqueta de cliente. Pulsa <strong>Conectar</strong> para listar servicios disponibles.</p>
+      <p>Contacta con Runable.app para acceso a IA Wrapper si no tienes la aplicación complementaria instalada.</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>Documentación hledger (RAG)</h2>
+      <p>Moni puede incrustar documentación hledger para que la IA local cite flags y conceptos correctos. Las líneas de estado en el panel IA muestran:</p>
+      <ul>
+        <li><strong>No disponible</strong> — opcional para IA local; la nube puede funcionar sin ello.</li>
+        <li><strong>Estado: archivo en disco</strong> — índice presente, se carga al enviar el primer mensaje.</li>
+        <li><strong>Listo — N fragmentos de documentos</strong> — la recuperación está activa para respuestas fundamentadas.</li>
+      </ul>
+      <p>Para rutas, orden de búsqueda y detalles de complist, revisa Configuración → Registros → Depuración en <code>app.log</code>, o el botón 📜 Registros del proveedor en el panel IA.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Línea de estado RAG</span></div>
+          <figcaption>Estado de la documentación hledger bajo los controles del proveedor IA.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>Comportamiento del chat en Principal</h2>
+      <p>Con un proveedor conectado, escribe en Principal → Chat. Moni puede sugerir comandos hledger ejecutables; pulsa Enter o usa los controles para ejecutarlos en el panel Libro mayor. Con autocompletado activado (Configuración → hledger), al escribir argv de hledger aparece un popover; Ctrl+H ejecuta hledger desde la línea de entrada.</p>
+      <p>El registro de interacción (Configuración → Registros) puede guardar entrada del usuario, conversación con IA y resultados del panel ledger para tu propia auditoría.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Sugerencia hledger en chat</span></div>
+          <figcaption>Autocompletado de comandos hledger en el chat.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ejecutar comando desde chat</span></div>
+          <figcaption>Comando sugerido por el asistente ejecutado en Libro mayor.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>Resolución de problemas</h2>
+      <ul>
+        <li><strong>La API compatible con OpenIA no es accesible.</strong> — para llama.cpp, confirma que Iniciar servidor tuvo éxito; abre el log del servidor desde el LED de diagnósticos. Comprueba que el firewall no bloquee localhost.</li>
+        <li><strong>Wrong GPU build</strong> — un binario solo CPU no puede usar GPU; descarga o instala una variante llama-server con GPU.</li>
+        <li><strong>Empty or “thinking” replies</strong> — activa <strong>Desactivar razonamiento del modelo</strong> y reinicia el servidor.</li>
+        <li><strong>Cloud errors</strong> — verifica clave API, nombre del modelo y red; lee 📜 Registros para el estado HTTP.</li>
+        <li><strong>RAG not loading</strong> — revisa líneas de depuración en app.log; el primer chat puede tardar más mientras se carga el índice.</li>
+      </ul>
+      <p>Copia el <strong>diagnostics bundle</strong> de llama.cpp (estado + cola de log) al reportar problemas — incluye lo que soporte necesita sin exponer tu diario.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← Resumen de Configuración</a>
+      <a href="index.html">Guía de usuario →</a>
+    </nav>

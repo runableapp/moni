@@ -1,0 +1,181 @@
+<h1>Benutzerhandbuch</h1>
+    <p class="manual-lead">Moni ist ein Desktop-Begleiter für hledger-Journale im Klartext. Dieses Handbuch führt durch jede Registerkarte in der App-Leiste und erklärt, was Sie dort tun können. Die Screenshots unten sind Platzhalter — ersetzen Sie sie bei Bedarf durch echte Aufnahmen aus Ihrer Installation.</p>
+
+    <nav class="manual-toc" aria-label="Auf dieser Seite">
+      <h2>Auf dieser Seite</h2>
+      <ol>
+        <li><a href="#tabs">Die Tab-Leiste</a></li>
+        <li><a href="#main">Übersicht</a></li>
+        <li><a href="#accounts">Konten</a></li>
+        <li><a href="#payees">Empfänger</a></li>
+        <li><a href="#reports">Berichte</a></li>
+        <li><a href="#import">Import</a></li>
+        <li><a href="#settings">Einstellungen</a></li>
+        <li><a href="#help">Hilfe</a></li>
+      </ol>
+    </nav>
+
+    <section id="tabs" class="manual-section">
+      <h2>Die Tab-Leiste</h2>
+      <p>Sieben Registerkarten befinden sich oben im Fenster. Zusammen decken sie tägliche Buchführung, Konten, Berichte, CSV-Import, Konfiguration und integrierte Hilfe ab.</p>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Tab</th><th>Zweck</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🏠 Übersicht</td><td>Ledger-Panel + KI-Chat; Symbolleisten-Schaltflächen starten hledger-Werkzeuge</td></tr>
+          <tr><td>🏦 Konten</td><td>Konto für Saldenchart und Kontoblatt wählen</td></tr>
+          <tr><td>🧾 Empfänger</td><td>Empfänger durchsuchen und Kontoblätter öffnen</td></tr>
+          <tr><td>📈 Berichte</td><td>Längere Übersichten (Monatsberichte usw.)</td></tr>
+          <tr><td>📥 Import</td><td>Bank-CSV ablegen; Vorschau mit hledger import</td></tr>
+          <tr><td>⚙️ Einstellungen</td><td>hledger-Pfade, KI, Schaltflächen, Theme, Sicherung und mehr</td></tr>
+          <tr><td>❓ Hilfe</td><td>Integrierte Markdown-Themen mit der App</td></tr>
+        </tbody>
+      </table>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Gesamtfenster — Tab-Leiste</span></div>
+          <figcaption>Alle sieben Tabs in einem typischen Desktop-Layout.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Tab-Leiste im Detail</span></div>
+          <figcaption>Tab-Beschriftungen und Symbole folgen der UI-Sprache.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Erster Start</span></div>
+          <figcaption>Vor der hledger-Konfiguration fordert Einstellungen Sie auf, Binary- und Journal-Pfade zu setzen.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="main" class="manual-section">
+      <h2>Übersicht</h2>
+      <p>Der Übersicht-Tab teilt das Fenster in zwei Panels. <strong>Ledger</strong> (links) zeigt Ergebnisse von Symbolleisten-Schaltflächen und integrierten Werkzeugen — Tabellen, Diagramme und Klartext stapeln sich im Panel. Mit <strong>Löschen</strong> setzen Sie den Stapel zurück. <strong>Chat</strong> (rechts) spricht mit dem unter Einstellungen → KI gewählten Anbieter; ist keiner gewählt, erklärt Moni die Aktivierung.</p>
+      <p>Symbolleisten-Schaltflächen sind YAML-Rezepte (siehe <a href="custom-buttons.html">Eigene Schaltflächen</a>). Mit einem Klick starten Sie hledger-Berichte, Kontoblätter, Bilanzen und externe Skripte. Der Chat kann hledger-Befehle vorschlagen; optionale Prüfung vergleicht sie mit Ihrer installierten Version.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Übersicht — Ledger + Chat</span></div>
+          <figcaption>Geteilte Ansicht: Ledger links, Chat rechts.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Symbolleisten-Schaltflächen</span></div>
+          <figcaption>Eigene und mitgelieferte Schaltflächen über dem Ledger-Panel.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Kontoblatt-Tabelle mit Drill-down</span></div>
+          <figcaption>Schaltflächenausgabe als interaktives Kontoblatt mit Zeilen-Drill-down.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Konten</h2>
+      <p>Wählen Sie ein Konto aus der Liste (unter Einstellungen → Konten). Moni zeigt einen Saldenverlauf und ein gefiltertes Kontoblatt. Anzeigenamen, Symbole und Institutshinweise stammen aus den Kontoprofilen.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Kontenliste</span></div>
+          <figcaption>In Einstellungen → Konten sichtbar gemachte Konten.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Saldenchart</span></div>
+          <figcaption>Laufender Saldo des gewählten Kontos.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Kontoblatt</span></div>
+          <figcaption>Buchungsliste für das gewählte Konto.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="payees" class="manual-section">
+      <h2>Empfänger</h2>
+      <p>Durchsuchen Sie Empfänger aus Ihrem Journal. Wählen Sie einen, um sein Kontoblatt in einem Modal zu öffnen — hilfreich für Ausgaben bei einem Händler oder Kunden.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Empfängerliste</span></div>
+          <figcaption>Durchsuchbare Liste von Empfängern aus dem Journal.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Empfänger-Kontoblatt-Modal</span></div>
+          <figcaption>Auf einen Empfänger gefiltertes Kontoblatt, aus der Liste geöffnet.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reports" class="manual-section">
+      <h2>Berichte</h2>
+      <p>Berichte ist ein Bereich für längere oder zusammenfassende Ansichten — z. B. monatliche GuV-Berichte. Der Inhalt wächst mit künftigen Versionen; viele Alltagsberichte bleiben auf Übersicht über Symbolleisten-Schaltflächen.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Berichte-Tab Überblick</span></div>
+          <figcaption>Ein-Panel-Layout für Berichts-Workflows.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Beispiel-Monatsbericht</span></div>
+          <figcaption>Beispielübersicht (Platzhalter).</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Import</h2>
+      <p>Öffnen Sie Import und legen Sie eine <code>.csv</code>, <code>.ssv</code>, or <code>.tsv</code> Datei in die Ablagezone oder nutzen Sie das <strong>Import ▾</strong> Menü. Moni wendet Ihre Importregeln an und zeigt immer eine Vorschau mit <code>hledger import --dry-run</code> bevor ins Journal geschrieben wird.</p>
+      <p>Zwei Workflows stehen bereit: <strong>klassischer Import</strong> (Gesamtdatei-Import mit <code>.latest</code> Nachverfolgung) und <strong>Intelligenter Import</strong> (Zeilen wählen, Journaltext anhängen). Intelligenter Import unter Einstellungen → CSV-Import umschalten. Die vollständige Import-Anleitung finden Sie in der App unter Hilfe → Import.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Import-Ablagezone</span></div>
+          <figcaption>Drag-and-Drop-Bereich für Bank-CSV.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Dry-run-Vorschau</span></div>
+          <figcaption>Buchungen vor dem Commit ansehen.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Smart-Import-Zeilenauswahl</span></div>
+          <figcaption>Einzelne Zeilen wählen, wenn Intelligenter Import aktiv ist.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="settings" class="manual-section">
+      <h2>Einstellungen</h2>
+      <p>Einstellungen ist links in Abschnitte gegliedert: Allgemein, KI, Konten, MCP, Erweitert, KI-Agenten, Schaltflächen, Erscheinungsbild, Sicherung, hledger, Import und Protokolle. Beginnen Sie mit <strong>hledger</strong> (Binary + Journalpfad) und <strong>Konten</strong> (welche Konten auf Übersicht und Konten erscheinen).</p>
+      <p>Siehe das <a href="settings.html">Einstellungen-Handbuch</a> für jeden Abschnitt. Die KI-Einrichtung steht in <a href="settings-ai.html">Einstellungen → KI</a>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen-Seitenleiste</span></div>
+          <figcaption>Abschnittsliste links, Detailpanel rechts.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen → hledger</span></div>
+          <figcaption>Binary-Pfad, Journaldatei und Download-Hilfe.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen → Schaltflächen</span></div>
+          <figcaption>Symbolleisten-Schaltflächen aktivieren und jeweils auf ein YAML-Rezept verweisen.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="help" class="manual-section">
+      <h2>Hilfe</h2>
+      <p>Der Hilfe-Tab liefert Markdown-Themen mit der App — standardmäßig Englisch, plus Lokalisierungen für Deutsch, Spanisch, Französisch, Japanisch, Koreanisch und Chinesisch. Themen: Import, KI-Nutzung, Fehlerbehebung.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Hilfe-Themenliste</span></div>
+          <figcaption>Themen in der Hilfe-Seitenleiste durchsuchen.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Gerendeter Hilfe-Artikel</span></div>
+          <figcaption>In-App-Markdown im App-Theme.</figcaption>
+        </figure>
+      </div>
+      <div class="manual-callout">
+        <strong>Tipp:</strong> Sichern Sie Ihr Journal vor Massenimporten oder experimentellen KI-Umschreibungen. Automatisches Sicherung unter Einstellungen → Sicherung aktivieren.
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="custom-buttons.html">Weiter: Eigene Schaltflächen (YAML) →</a>
+      <a href="settings.html">Einstellungsübersicht →</a>
+    </nav>

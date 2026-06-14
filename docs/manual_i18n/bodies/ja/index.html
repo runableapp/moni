@@ -1,0 +1,181 @@
+<h1>ユーザーガイド</h1>
+    <p class="manual-lead">Moni はプレーンテキストの hledger journal 向けデスクトップコンパニオンです。このガイドでは、アプリバーの各タブと、そこでできることを順番に紹介します。以下のスクリーンショットはプレースホルダーです。準備ができたら、実際のビルドで取得した画像に置き換えてください。</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>このページの内容</h2>
+      <ol>
+        <li><a href="#tabs">タブバー</a></li>
+        <li><a href="#main">メイン</a></li>
+        <li><a href="#accounts">口座</a></li>
+        <li><a href="#payees">取引先</a></li>
+        <li><a href="#reports">レポート</a></li>
+        <li><a href="#import">インポート</a></li>
+        <li><a href="#settings">設定</a></li>
+        <li><a href="#help">ヘルプ</a></li>
+      </ol>
+    </nav>
+
+    <section id="tabs" class="manual-section">
+      <h2>タブバー</h2>
+      <p>ウィンドウ上部には 7 つのタブが並んでいます。日々の台帳作業、口座の閲覧、レポート、CSV インポート、設定、アプリ内ドキュメントをまとめて扱えます。</p>
+      <table class="manual-table">
+        <thead>
+          <tr><th>タブ</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🏠 メイン</td><td>台帳 パネル + AI チャット。ツールバーのボタンで hledger ツールを実行</td></tr>
+          <tr><td>🏦 口座</td><td>残高チャートとレジスターを表示する口座を選択</td></tr>
+          <tr><td>🧾 取引先</td><td>取引先を一覧し、取引先レジスタを開く</td></tr>
+          <tr><td>📈 レポート</td><td>より長い要約ビュー（月次レポートなど）</td></tr>
+          <tr><td>📥 インポート</td><td>銀行の CSV エクスポートをドロップし、hledger import でプレビュー</td></tr>
+          <tr><td>⚙️ 設定</td><td>hledger のパス、AI、ボタン、テーマ、バックアップなど</td></tr>
+          <tr><td>❓ ヘルプ</td><td>アプリに同梱された組み込み Markdown トピック</td></tr>
+        </tbody>
+      </table>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>全体ウィンドウ — タブバー</span></div>
+          <figcaption>一般的なデスクトップレイアウトで 7 つのタブすべてが表示された状態です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>タブバーの拡大表示</span></div>
+          <figcaption>タブラベルとアイコンは UI 言語設定に合わせて表示されます。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>初回起動</span></div>
+          <figcaption>hledger が未設定の場合、設定 でバイナリと journal のパスを設定するよう案内されます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="main" class="manual-section">
+      <h2>メイン</h2>
+      <p>メイン タブではウィンドウが 2 つのパネルに分かれます。<strong>台帳</strong>（左側）には、ツールバーボタンや組み込みツールの結果が表示され、表、チャート、プレーンテキスト出力が積み重なります。<strong>クリア</strong> を使うとスタックをリセットできます。<strong>チャット</strong>（右側）は 設定 → AI で選択した AI プロバイダーと会話します。何も選択されていない場合は、Moni が AI の有効化方法を案内します。</p>
+      <p>ツールバーボタンは YAML レシピです（<a href="custom-buttons.html">カスタムボタン</a>参照）。hledger のレポート、レジスター、バランスシート、外部スクリプトをワンクリックで実行できます。チャット は hledger コマンドを提案でき、任意の検証機能で、インストール済みの hledger バージョンとの整合性を確認できます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>メイン — 台帳 + チャット</span></div>
+          <figcaption>分割ビュー。左が台帳結果、右がチャットです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ツールバーボタン</span></div>
+          <figcaption>台帳 パネル上部に並ぶカスタムボタンと同梱ボタンです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>レジスター表 + ドリルダウン</span></div>
+          <figcaption>ボタン出力が、行のドリルダウン可能な対話式レジスターとして表示されます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>口座</h2>
+      <p>一覧から口座を選択します（設定 → 口座 で設定）。Moni は残高推移チャートと、その口座で絞り込んだレジスターを表示します。口座の表示名、アイコン、金融機関のヒントは 設定 の口座プロファイルから取得されます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>口座一覧</span></div>
+          <figcaption>設定 → 口座 で表示対象にした口座です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>残高チャート</span></div>
+          <figcaption>選択した口座の推移残高です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>口座レジスター</span></div>
+          <figcaption>選択した口座の仕訳一覧です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="payees" class="manual-section">
+      <h2>取引先</h2>
+      <p>journal から抽出された取引先を閲覧できます。取引先を選ぶと、その取引先のレジスターをモーダルダイアログで開けます。特定の店舗や顧客に対する支出を確認したいときに便利です。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>取引先一覧</span></div>
+          <figcaption>journal 由来の取引先名を検索可能な一覧です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>取引先レジスターモーダル</span></div>
+          <figcaption>一覧から開く、1 つの取引先に絞ったレジスターです。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reports" class="manual-section">
+      <h2>レポート</h2>
+      <p>レポート は、より時間のかかる処理や要約表示のための専用エリアです。たとえば月次の損益レポートのようなビューを想定しています。ここは今後のリリースで拡張されますが、日常的なレポートの多くは現時点では メイン のツールバーボタンにあります。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>レポート タブ概要</span></div>
+          <figcaption>レポート作業向けの単一パネルレイアウトです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>月次レポートの例</span></div>
+          <figcaption>要約ビューの例（プレースホルダー）です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>インポート</h2>
+      <p>インポート を開き、<code>.csv</code>、<code>.ssv</code>、<code>.tsv</code> ファイルをドロップゾーンに置くか、<strong>インポート ▾</strong> メニューを使います。Moni はインポートルールを適用し、journal に書き込む前に必ず <code>hledger import --dry-run</code> でプレビューします。</p>
+      <p>利用できるワークフローは 2 つあります。<strong>classic import</strong>（ファイル全体のインポートと重複追跡用 <code>.latest</code>）と、<strong>スマートインポート</strong>（行を選択し、選んだ journal テキストだけを追記）です。スマートインポート は 設定 → CSV インポート で切り替えます。インポート全体のガイドは、アプリ内の ヘルプ → インポート を開いてください。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>インポートドロップゾーン</span></div>
+          <figcaption>銀行 CSV エクスポートをドラッグ＆ドロップする領域です。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>dry-run プレビュー</span></div>
+          <figcaption>確定前に仕訳を確認できます。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>スマートインポート 行選択</span></div>
+          <figcaption>スマートインポート 有効時に個別の行を選択します。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="settings" class="manual-section">
+      <h2>設定</h2>
+      <p>設定 は左側のセクション一覧で構成されています。一般、AI、口座、MCP、詳細設定、AI エージェント、ボタン、外観、バックアップ、hledger、インポート、ログ です。まずは <strong>hledger</strong>（バイナリ + journal パス）と <strong>口座</strong>（メイン と 口座 に表示する口座）を設定してください。</p>
+      <p>各セクションの詳細は専用の <a href="settings.html">設定 マニュアル</a>を参照してください。AI の設定は <a href="settings-ai.html">設定 → AI</a> で扱っています。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 サイドバー</span></div>
+          <figcaption>左がセクション一覧、右が詳細パネルです。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 → hledger</span></div>
+          <figcaption>バイナリパス、journal ファイル、ダウンロード補助があります。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>設定 → ボタン</span></div>
+          <figcaption>ツールバーボタンを有効化し、それぞれに YAML レシピを割り当てます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="help" class="manual-section">
+      <h2>ヘルプ</h2>
+      <p>ヘルプ タブにはアプリ同梱の Markdown トピックが含まれています。既定では英語ですが、ドイツ語、スペイン語、フランス語、日本語、韓国語、中国語のローカライズ版も用意されています。トピックにはインポートワークフロー、AI の使い方、トラブルシューティングが含まれます。</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>ヘルプトピック一覧</span></div>
+          <figcaption>ヘルプ タブのサイドバーからトピックを参照できます。</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>表示されたヘルプ記事</span></div>
+          <figcaption>アプリテーマでレンダリングされた Markdown を表示します。</figcaption>
+        </figure>
+      </div>
+      <div class="manual-callout">
+        <strong>ヒント:</strong> 大量インポートや、AI が提案した書き換えを試す前に journal をバックアップしておきましょう。自動バックアップは 設定 → バックアップ で有効にできます。
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="custom-buttons.html">次へ: カスタムボタン (YAML) →</a>
+      <a href="settings.html">設定 概要 →</a>
+    </nav>

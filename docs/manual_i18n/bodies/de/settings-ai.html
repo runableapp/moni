@@ -1,0 +1,166 @@
+<h1>Einstellungen → KI</h1>
+    <p class="manual-lead">Übersicht → Chat uses the provider selected here. <strong>Local-first</strong> options (llama.cpp, Ollama) keep your journal and messages on your machine. Cloud providers send chat to their APIs — use them only if you accept that trade-off. Choose <strong>Keiner</strong> to disable chat until you are ready.</p>
+
+    <nav class="manual-toc" aria-label="Auf dieser Seite">
+      <h2>Auf dieser Seite</h2>
+      <ol>
+        <li><a href="#providers">Choosing a provider</a></li>
+        <li><a href="#local">Local KI (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">Cloud providers</a></li>
+        <li><a href="#wrapper">KI Wrapper</a></li>
+        <li><a href="#rag">hledger-Dokumentationsindex (RAG)</a></li>
+        <li><a href="#chat">Chat behavior</a></li>
+        <li><a href="#troubleshoot">Troubleshooting</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Einstellungen → KI panel</span></div>
+        <figcaption>Provider dropdown at the top of the KI section.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Local KI setup wizard</span></div>
+        <figcaption>Lokale KI einrichten: binary, model, server.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chat with KI enabled</span></div>
+        <figcaption>Übersicht tab chat after a provider is connected.</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>Choosing a provider</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Provider</th><th>Privacy</th><th>Typical use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Keiner</strong></td><td>Chat disabled</td><td>Ledger-only workflow</td></tr>
+          <tr><td><strong>Lokales llama.cpp</strong></td><td>Fully local</td><td>Managed server, model download, GPU support</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>Local (Ollama daemon)</td><td>If you already run Ollama models</td></tr>
+          <tr><td><strong>OpenKI / Claude / Gemini</strong></td><td>Cloud API</td><td>Strong models when local hardware is limited</td></tr>
+          <tr><td><strong>KI Wrapper</strong></td><td>Via Runable desktop app</td><td>Extension or Electron bridge to external services</td></tr>
+        </tbody>
+      </table>
+      <p>After changing provider, use the connectivity check (status indicator) and 📜 <strong>Protokolle</strong> button in the KI panel if chat fails to respond.</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>Local KI (llama.cpp)</h2>
+      <p>Moni can download a <strong>llama-server</strong> binary and a GGUF model, then manage the server process on <code>127.0.0.1</code> (ports 8081–8299). Recommended first-time flow: click <strong>Lokale KI einrichten</strong> or download binary + model separately, then <strong>Server starten</strong>.</p>
+
+      <h3>Key controls</h3>
+      <ul>
+        <li><strong>Zu verwendendes Modell</strong> — pick a bundled preset or choose another GGUF file. Changing model while the server runs may prompt to restart.</li>
+        <li><strong>GPU verwenden, falls verfügbar</strong> — requires a GPU-capable llama-server build; pick a specific GPU device or “All GPUs”.</li>
+        <li><strong>Modell-Reasoning deaktivieren</strong> — recommended for chat; passes <code>--reasoning off</code> so replies appear in the panel (needed for Qwen 3 and similar “thinking” models).</li>
+        <li><strong>Modelle ohne Neustart wechseln (Router-Modus)</strong> — swap models without full restart when using a multi-model <code>--models-dir</code> layout.</li>
+        <li><strong>Lokale KI beim Start automatisch starten</strong> — starts the managed server after the app loads (binary and model must already be installed).</li>
+        <li><strong>Chat reply length / timeout</strong> — cap tokens and wait time for slow hardware.</li>
+        <li><strong>Programmverzeichnis / Modellverzeichnis</strong> — override default paths; <strong>Pfade auf Standard zurücksetzen</strong> restores shipped layout.</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>llama.cpp server controls</span></div>
+          <figcaption>Start/stop, model picker, GPU toggles.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Download progress</span></div>
+          <figcaption>Binary or GGUF download with ETA.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Server diagnostics</span></div>
+          <figcaption>Readiness LED, log tail, copy diagnostics bundle.</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        Moni-managed server binds the first free port on localhost from 8081 to 8299. The port is saved with the process identity so Moni reconnects after restart.
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>Point Moni at your running Ollama instance (default base URL on localhost). Select a model from the list Ollama exposes. Ensure Ollama is installed and the model is pulled (<code>ollama pull …</code>) before chatting.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ollama model list</span></div>
+          <figcaption>Models available from your Ollama daemon.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>Cloud providers (OpenKI, Claude, Gemini)</h2>
+      <p>Enter your API key (stored in local config). Pick model and any provider-specific options shown in the panel. Cloud chat does not require a local GPU but sends conversation content to the vendor’s API — do not use for journals you cannot share externally.</p>
+      <p>Related hledger settings (under Einstellungen → hledger): <strong>hledger-Befehle in KI-Antworten prüfen</strong> lint assistant examples against the version-matched complist and your binary before you click Run.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>API key field</span></div>
+          <figcaption>Provider credentials (masked in UI).</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Model selection</span></div>
+          <figcaption>Choose model tier for the selected cloud provider.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>KI Wrapper (experimental)</h2>
+      <p>Verbindens to the Runable <strong>KI Wrapper</strong> desktop app on the same machine. Register a client in KI Wrapper → API, enable services in Preferences, then paste the registration token in Moni. Choose service, mode (Electron in-app webview or Chrome-Erweiterung), and client label. Click <strong>Verbinden</strong> to list available services.</p>
+      <p>Contact Runable.app for KI Wrapper access if you do not have the companion app installed.</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>hledger-Dokumentationsindex (RAG)</h2>
+      <p>Moni can embed hledger documentation so local KI answers cite correct flags and concepts. Status lines in the KI panel show:</p>
+      <ul>
+        <li><strong>Nicht verfügbar</strong> — optional for local KI; cloud may still work without it.</li>
+        <li><strong>Auf Disk; lädt beim ersten Chat</strong> — doc index present, loads when you first send a message.</li>
+        <li><strong>Bereit — N Dokumentabschnitte</strong> — retrieval is active for grounded replies.</li>
+      </ul>
+      <p>For paths, search order, and complist details, check Einstellungen → Protokolle → Debug in <code>app.log</code>, or the provider 📜 Protokolle button in the KI panel.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>RAG status line</span></div>
+          <figcaption>hledger docs readiness under the KI-Anbieter controls.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>Chat behavior on Übersicht</h2>
+      <p>With a provider connected, type in Übersicht → Chat. Moni may suggest runnable hledger commands; press Enter or use controls to execute them in the Ledger-Panel-Ergebnisse. With autocomplete enabled (Einstellungen → hledger), typing hledger argv shows suggestion popover; Ctrl+H runs hledger from the input line.</p>
+      <p>Interaction logging (Einstellungen → Protokolle) can record user input, KI conversation, and ledger panel results for your own audit trail.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chat hledger suggestion</span></div>
+          <figcaption>Autocomplete for hledger commands in chat.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Run command from chat</span></div>
+          <figcaption>Assistant-suggested command executed in Ledger-Panel-Ergebnisse.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li><strong>OpenKI-kompatible API ist nicht erreichbar.</strong> — for llama.cpp, confirm Server starten succeeded; open server log from the diagnostics LED. Check firewall is not blocking localhost.</li>
+        <li><strong>Wrong GPU build</strong> — CPU-only binary cannot use GPU toggle; download or install a GPU-capable llama-server variant.</li>
+        <li><strong>Empty or “thinking” replies</strong> — enable <strong>Modell-Reasoning deaktivieren</strong> and restart the server.</li>
+        <li><strong>Cloud errors</strong> — verify API key, model name, and network; read 📜 Protokolle for HTTP status.</li>
+        <li><strong>RAG not loading</strong> — see app.log debug lines; first chat may take longer while the index loads.</li>
+      </ul>
+      <p>Copy the llama.cpp <strong>diagnostics bundle</strong> (status + log tail) when reporting issues — it includes everything support needs without exposing your journal.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← Einstellungen overview</a>
+      <a href="index.html">Benutzerhandbuch →</a>
+    </nav>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moni 사용자 가이드 — 매뉴얼</title>
+  <meta name="description" content="Moni 탭과 일상 워크플로: 메인, 계정, 거래처, 보고서, 가져오기, 설정, 도움말.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../ko.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="언어 선택" title="언어 변경" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇰🇷</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="언어 선택">
+          <a href="../index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="index.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../ko.html">홈</a></li>
+      <li><a href="index.html" class="nav-cta">매뉴얼</a></li>
+      <li><a href="../../feedback.html">피드백</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Moni 매뉴얼</p>
+    <nav>
+      <a href="index.html" class="active">사용자 가이드</a>
+      <a href="custom-buttons.html">사용자 지정 버튼 (YAML)</a>
+      <a href="settings.html">설정</a>
+      <a href="settings-ai.html" class="sub">설정 → AI</a>
+    </nav>
+    <a href="../../ko.html" class="manual-back">← Moni 홈으로</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>사용자 가이드</h1>
+    <p class="manual-lead">Moni는 일반 텍스트 hledger 저널을 위한 데스크톱 도우미입니다. 이 가이드는 앱 바의 각 탭과 그곳에서 할 수 있는 일을 안내합니다. 아래 스크린샷은 플레이스홀더이므로 준비가 되면 빌드에서 실제 캡처로 교체하세요.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>이 페이지에서</h2>
+      <ol>
+        <li><a href="#tabs">탭 바</a></li>
+        <li><a href="#main">메인</a></li>
+        <li><a href="#accounts">계정</a></li>
+        <li><a href="#payees">거래처</a></li>
+        <li><a href="#reports">보고서</a></li>
+        <li><a href="#import">가져오기</a></li>
+        <li><a href="#settings">설정</a></li>
+        <li><a href="#help">도움말</a></li>
+      </ol>
+    </nav>
+
+    <section id="tabs" class="manual-section">
+      <h2>탭 바</h2>
+      <p>창 상단에는 일곱 개의 탭이 있습니다. 이 탭들은 일상적인 원장 작업, 계정 탐색, 보고서, CSV 가져오기, 설정, 앱 내 문서를 함께 다룹니다.</p>
+      <table class="manual-table">
+        <thead>
+          <tr><th>탭</th><th>용도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🏠 메인</td><td>원장 패널 + AI 채팅; 도구 모음 버튼으로 hledger 도구 실행</td></tr>
+          <tr><td>🏦 계정</td><td>잔액 차트와 등록부를 볼 계정 선택</td></tr>
+          <tr><td>🧾 거래처</td><td>거래처를 둘러보고 거래처 등록부 열기</td></tr>
+          <tr><td>📈 보고서</td><td>더 긴 요약 보기(월간 리포트 등)</td></tr>
+          <tr><td>📥 가져오기</td><td>CSV 은행 내보내기 파일을 놓고 hledger import로 미리보기</td></tr>
+          <tr><td>⚙️ 설정</td><td>hledger 경로, AI, 버튼, 테마, 백업 등</td></tr>
+          <tr><td>❓ 도움말</td><td>앱과 함께 제공되는 내장 Markdown 주제</td></tr>
+        </tbody>
+      </table>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>전체 창 — 탭 바</span></div>
+          <figcaption>일반적인 데스크톱 레이아웃에서 일곱 개 탭이 모두 보입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>탭 바 확대</span></div>
+          <figcaption>탭 라벨과 아이콘은 UI 언어 설정과 일치합니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>첫 실행</span></div>
+          <figcaption>hledger가 설정되기 전에는 설정에서 바이너리와 저널 경로를 설정하라는 안내가 표시됩니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="main" class="manual-section">
+      <h2>메인</h2>
+      <p>메인 탭은 창을 두 개의 패널로 나눕니다. <strong>원장</strong>(왼쪽)는 도구 모음 버튼과 내장 도구의 결과를 표시하며, 표, 차트, 일반 텍스트 출력이 패널에 쌓입니다. <strong>지우기</strong>를 사용해 스택을 초기화하세요. <strong>채팅</strong>(오른쪽)은 설정 → AI에서 선택한 AI 제공자와 대화합니다. 아무것도 선택하지 않았다면 Moni가 AI를 활성화하는 방법을 설명합니다.</p>
+      <p>도구 모음 버튼은 YAML 레시피입니다(<a href="custom-buttons.html">사용자 지정 버튼</a> 참고). 한 번의 클릭으로 hledger 리포트, 등록부, 대차대조표, 외부 스크립트를 실행할 수 있습니다. 채팅은 hledger 명령을 제안할 수 있으며, 선택적 검증 기능은 설치된 hledger 버전과 대조해 확인합니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>메인 — 원장 + 채팅</span></div>
+          <figcaption>분할 보기: 왼쪽은 원장 결과, 오른쪽은 채팅입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>도구 모음 버튼</span></div>
+          <figcaption>원장 패널 상단에 사용자 지정 버튼과 기본 제공 버튼이 표시됩니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>등록부 표 + 드릴다운</span></div>
+          <figcaption>행 드릴다운이 가능한 대화형 등록부로 버튼 출력이 표시됩니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>계정</h2>
+      <p>목록에서 계정을 선택하세요(설정 → 계정에서 설정). Moni는 시간에 따른 잔액 차트와 해당 계정으로 필터링된 등록부를 보여줍니다. 계정 표시 이름, 아이콘, 기관 힌트는 설정의 계정 프로필에서 가져옵니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>계정 목록</span></div>
+          <figcaption>설정 → 계정에서 표시되도록 설정한 계정입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>잔액 차트</span></div>
+          <figcaption>선택한 계정의 누적 잔액입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>계정 등록부</span></div>
+          <figcaption>선택한 계정의 분개 목록입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="payees" class="manual-section">
+      <h2>거래처</h2>
+      <p>저널에서 추출한 거래처를 둘러보세요. 거래처를 선택하면 모달 대화상자에서 해당 거래처의 등록부를 열 수 있어, 특정 상점이나 고객과의 지출을 검토할 때 유용합니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>거래처 목록</span></div>
+          <figcaption>저널에서 가져온 거래처 이름의 검색 가능한 목록입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>거래처 등록부 모달</span></div>
+          <figcaption>목록에서 열 수 있는, 단일 거래처로 필터링된 등록부입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reports" class="manual-section">
+      <h2>보고서</h2>
+      <p>보고서는 더 오래 실행되거나 요약 중심의 보기를 위한 전용 영역입니다. 예를 들어 월간 손익 요약 같은 리포트를 볼 수 있습니다. 이 영역의 내용은 앞으로의 릴리스에서 더 늘어날 예정이며, 많은 일상 리포트는 여전히 메인의 도구 모음 버튼에 있습니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>보고서 탭 개요</span></div>
+          <figcaption>리포트 워크플로를 위한 단일 패널 레이아웃입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>월간 리포트 예시</span></div>
+          <figcaption>요약 보기 예시(플레이스홀더)입니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>가져오기</h2>
+      <p>가져오기를 열고 드롭 영역에 <code>.csv</code>, <code>.ssv</code>, 또는 <code>.tsv</code> 파일을 놓거나 <strong>가져오기 ▾</strong> 메뉴를 사용하세요. Moni는 가져오기 규칙을 적용하고, 저널에 쓰기 전에 항상 <code>hledger import --dry-run</code>으로 미리보기를 보여줍니다.</p>
+      <p>두 가지 워크플로를 사용할 수 있습니다. <strong>classic import</strong>(전체 파일 가져오기와 겹침 <code>.latest</code> 추적)와 <strong>스마트 가져오기</strong>(행을 선택하고 선택한 저널 텍스트를 추가)입니다. 설정 → CSV 가져오기에서 스마트 가져오기를 전환하세요. 전체 가져오기 가이드는 앱 안에서 도움말 → 가져오기를 여세요.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>가져오기 드롭 영역</span></div>
+          <figcaption>은행 CSV 내보내기 파일을 끌어다 놓는 영역입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>드라이런 미리보기</span></div>
+          <figcaption>커밋 전에 분개를 미리 확인합니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>스마트 가져오기 행 선택기</span></div>
+          <figcaption>스마트 가져오기가 활성화되면 개별 행을 선택합니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="settings" class="manual-section">
+      <h2>설정</h2>
+      <p>설정은 왼쪽의 섹션 목록으로 구성됩니다: 일반, AI, 계정, MCP, 고급, AI 에이전트, 버튼, 모양, 백업, hledger, CSV 가져오기, 로그. 먼저 <strong>hledger</strong>(바이너리 + 저널 경로)와 <strong>계정</strong>(메인과 계정에 표시할 계정)를 설정하세요.</p>
+      <p>각 섹션은 전용 <a href="settings.html">설정 설명서</a>에서 확인할 수 있습니다. AI 설정은 <a href="settings-ai.html">설정 → AI</a>에서 다룹니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 사이드바</span></div>
+          <figcaption>왼쪽은 섹션 목록, 오른쪽은 상세 패널입니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 → hledger</span></div>
+          <figcaption>바이너리 경로, 저널 파일, 다운로드 도우미가 있습니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>설정 → 버튼</span></div>
+          <figcaption>도구 모음 버튼을 활성화하고 각 버튼이 YAML 레시피를 가리키도록 설정합니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="help" class="manual-section">
+      <h2>도움말</h2>
+      <p>도움말 탭은 앱과 함께 Markdown 주제를 제공합니다. 기본은 영어이며 독일어, 스페인어, 프랑스어, 일본어, 한국어, 중국어 현지화 사본도 포함됩니다. 주제에는 가져오기 워크플로, AI 사용법, 문제 해결이 포함됩니다.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>도움말 주제 목록</span></div>
+          <figcaption>도움말 탭 사이드바에서 주제를 둘러봅니다.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>렌더링된 도움말 문서</span></div>
+          <figcaption>앱 테마로 렌더링된 앱 내 Markdown입니다.</figcaption>
+        </figure>
+      </div>
+      <div class="manual-callout">
+        <strong>팁:</strong> 대량 가져오기나 실험적인 AI 제안 재작성 전에 저널을 백업해 두세요. 자동 백업은 설정 → 백업에서 활성화할 수 있습니다.
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="custom-buttons.html">다음: 사용자 지정 버튼 (YAML) →</a>
+      <a href="settings.html">설정 개요 →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

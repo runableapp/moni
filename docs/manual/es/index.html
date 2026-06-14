@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de usuario de Moni — Manual</title>
+  <meta name="description" content="Pestañas y flujo diario de Moni: Principal, Cuentas, Beneficiarios, Informes, Importar, Configuración, Ayuda.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../es.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Selector de idioma" title="Cambiar idioma" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇪🇸</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Selector de idioma">
+          <a href="../index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="index.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="../fr/index.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../es.html">Inicio</a></li>
+      <li><a href="index.html" class="nav-cta">Manual</a></li>
+      <li><a href="../../feedback.html">Comentarios</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Manual de Moni</p>
+    <nav>
+      <a href="index.html" class="active">Guía de usuario</a>
+      <a href="custom-buttons.html">Botones personalizados (YAML)</a>
+      <a href="settings.html">Ajustes</a>
+      <a href="settings-ai.html" class="sub">Ajustes → IA</a>
+    </nav>
+    <a href="../../es.html" class="manual-back">← Volver al inicio de Moni</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>Guía de usuario</h1>
+    <p class="manual-lead">Moni es un compañero de escritorio para diarios hledger en texto plano. Esta guía recorre cada pestaña de la barra de la aplicación y lo que puedes hacer en cada una. Las capturas siguientes son marcadores de posición; sustitúyelas por capturas reales de tu compilación cuando estén listas.</p>
+
+    <nav class="manual-toc" aria-label="On this page">
+      <h2>En esta página</h2>
+      <ol>
+        <li><a href="#tabs">La barra de pestañas</a></li>
+        <li><a href="#main">Principal</a></li>
+        <li><a href="#accounts">Cuentas</a></li>
+        <li><a href="#payees">Beneficiarios</a></li>
+        <li><a href="#reports">Informes</a></li>
+        <li><a href="#import">Importararararararararar</a></li>
+        <li><a href="#settings">Configuración</a></li>
+        <li><a href="#help">Ayuda</a></li>
+      </ol>
+    </nav>
+
+    <section id="tabs" class="manual-section">
+      <h2>La barra de pestañas</h2>
+      <p>Siete pestañas recorren la parte superior de la ventana. Juntas cubren el trabajo diario del libro mayor, la exploración de cuentas, informes, importación CSV, configuración y documentación integrada.</p>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Pestaña</th><th>Propósito</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🏠 Principal</td><td>Panel del libro mayor + chat de IA; los botones de la barra ejecutan herramientas hledger</td></tr>
+          <tr><td>🏦 Cuentas</td><td>Elige una cuenta para el gráfico de saldo y el registro</td></tr>
+          <tr><td>🧾 Beneficiarios</td><td>Explora beneficiarios y abre sus registros</td></tr>
+          <tr><td>📈 Informes</td><td>Vistas resumidas más largas (informes mensuales, etc.)</td></tr>
+          <tr><td>📥 Importarararararararararararararararararar</td><td>Suelta exportaciones CSV del banco; vista previa con hledger import</td></tr>
+          <tr><td>⚙️ Configuración</td><td>Rutas hledger, IA, botones, tema, copias de seguridad y más</td></tr>
+          <tr><td>❓ Ayuda</td><td>Temas Markdown integrados incluidos con la aplicación</td></tr>
+        </tbody>
+      </table>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ventana completa — barra de pestañas</span></div>
+          <figcaption>Las siete pestañas visibles en un diseño de escritorio habitual.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Primer plano de la barra</span></div>
+          <figcaption>Etiquetas e iconos coinciden con el idioma de la interfaz.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Primer inicio</span></div>
+          <figcaption>Antes de configurar hledger, Configuración pide la ruta del binario y del diario.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="main" class="manual-section">
+      <h2>Principal</h2>
+      <p>La pestaña Principal divide la ventana en dos paneles. <strong>Libro mayor</strong> (izquierda) muestra resultados de botones de la barra y herramientas integradas: tablas, gráficos y texto plano se apilan en el panel. Usa <strong>Limpiar</strong> para reiniciar la pila. <strong>Chat</strong> (derecha) habla con el proveedor de IA elegido en Configuración → IA; si no hay ninguno, Moni explica cómo activar la IA.</p>
+      <p>Los botones de la barra son recetas YAML (véase <a href="custom-buttons.html">Botones personalizados</a>). Puedes ejecutar informes hledger, registros, balances y scripts externos con un clic. El chat puede sugerir comandos hledger; la verificación opcional los contrasta con tu versión instalada.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Principal — Libro mayor + Chat</span></div>
+          <figcaption>Vista dividida: resultados del libro a la izquierda, chat a la derecha.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Botones de la barra</span></div>
+          <figcaption>Botones personalizados e incluidos sobre el panel Libro mayor.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Tabla de registro + detalle</span></div>
+          <figcaption>Salida del botón como registro interactivo con detalle por fila.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="accounts" class="manual-section">
+      <h2>Cuentas</h2>
+      <p>Elige una cuenta de la lista (configurada en Configuración → Cuentas). Moni muestra un gráfico de saldo en el tiempo y un registro filtrado a esa cuenta. Nombres, iconos e instituciones provienen de los perfiles en Configuración.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Lista de cuentas</span></div>
+          <figcaption>Cuentas marcadas como visibles en Configuración → Cuentas.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Gráfico de saldo</span></div>
+          <figcaption>Saldo acumulado de la cuenta seleccionada.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Registro de cuenta</span></div>
+          <figcaption>Lista de asientos de la cuenta seleccionada.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="payees" class="manual-section">
+      <h2>Beneficiarios</h2>
+      <p>Explora beneficiarios extraídos del diario. Selecciona uno para abrir su registro en un cuadro modal, útil para revisar gastos con un comercio o cliente.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Lista de beneficiarios</span></div>
+          <figcaption>Lista buscable de nombres del diario.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Modal de registro</span></div>
+          <figcaption>Registro filtrado a un beneficiario, abierto desde la lista.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reports" class="manual-section">
+      <h2>Informes</h2>
+      <p>Informes es un área dedicada a vistas más largas o resumidas, por ejemplo informes mensuales tipo P&amp;L. El contenido crecerá en futuras versiones; muchos informes diarios siguen en Principal mediante botones de la barra.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Resumen de Informes</span></div>
+          <figcaption>Diseño de un solo panel para flujos de informes.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Informe mensual de ejemplo</span></div>
+          <figcaption>Vista resumida de ejemplo (marcador de posición).</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="import" class="manual-section">
+      <h2>Importararararararararar</h2>
+      <p>Abre Importararararararararar y suelta un archivo <code>.csv</code>, <code>.ssv</code> o <code>.tsv</code> en la zona de soltar, o usa el menú <strong>Importararararararararar ▾</strong>. Moni aplica tus reglas y siempre muestra una vista previa con <code>hledger import --dry-run</code> antes de escribir en el diario.</p>
+      <p>Hay dos flujos: <strong>importación clásica</strong> (archivo completo con seguimiento <code>.latest</code>) e <strong>Importarararararararararación inteligente</strong> (elige filas y añade texto del diario). Activa Importarararararararararación inteligente en Configuración → Importaración CSVación CSVación CSVación CSVación CSVación CSVación CSVarar. Para la guía completa, abre Ayuda → Importarararararararararar en la aplicación.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Zona de soltar</span></div>
+          <figcaption>Área de arrastrar y soltar para CSV del banco.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Vista previa dry-run</span></div>
+          <figcaption>Previsualiza asientos antes de confirmar.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Selector de filas Importarararararararararación inteligente</span></div>
+          <figcaption>Selecciona filas individuales con Importarararararararararación inteligente activado.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="settings" class="manual-section">
+      <h2>Configuración</h2>
+      <p>Configuración se organiza en secciones a la izquierda: General, IA, Cuentas, MCP, Avanzado, Agentes de IA, Botones, Apariencia, Copia de seguridad, hledger, Importararararararararar y Registros. Empieza por <strong>hledger</strong> (binario + ruta del diario) y <strong>Cuentas</strong> (qué cuentas aparecen en Principal y Cuentas).</p>
+      <p>Consulta el <a href="settings.html">manual de Configuración</a> para cada sección. La configuración de IA está en <a href="settings-ai.html">Configuración → IA</a>.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Barra lateral Configuración</span></div>
+          <figcaption>Lista de secciones a la izquierda, panel de detalle a la derecha.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Configuración → hledger</span></div>
+          <figcaption>Ruta del binario, archivo del diario y ayuda de descarga.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Configuración → Botones</span></div>
+          <figcaption>Activa botones de la barra y apunta cada uno a una receta YAML.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="help" class="manual-section">
+      <h2>Ayuda</h2>
+      <p>La pestaña Ayuda incluye temas Markdown con la aplicación: inglés por defecto y copias localizadas en alemán, español, francés, japonés, coreano y chino. Los temas cubren importación, uso de IA y resolución de problemas.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Lista de temas Ayuda</span></div>
+          <figcaption>Explora temas desde la barra lateral de Ayuda.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Artículo Ayuda renderizado</span></div>
+          <figcaption>Markdown en la aplicación con el tema de la app.</figcaption>
+        </figure>
+      </div>
+      <div class="manual-callout">
+        <strong>Consejo:</strong> Haz una copia de seguridad del diario antes de importaciones masivas o reescrituras experimentales sugeridas por la IA. Activa la copia automática en Configuración → Copia de seguridad.
+      </div>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="custom-buttons.html">Siguiente: Botones personalizados (YAML) →</a>
+      <a href="settings.html">Resumen de Configuración →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

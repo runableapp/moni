@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres → IA — Manuel Moni</title>
+  <meta name="description" content="Configurer l'IA Moni : llama.cpp et Ollama locaux, OpenAI·Claude·Gemini cloud, RAG, GPU et chat.">
+  <link rel="icon" href="https://runableapp.github.io/i/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/manual.css">
+</head>
+<body class="manual-page">
+
+<nav>
+  <div class="inner">
+    <a href="../../fr.html" class="brand">
+      <img src="../../i/moni-wave.webp" alt="Moni logo">
+      <span>Moni</span>
+    </a>
+    <ul>
+      <li class="language-menu">
+        <button type="button" class="language-button" aria-label="Sélecteur de langue" title="Changer de langue" aria-expanded="false" aria-haspopup="true">
+          <span class="language-emoji" aria-hidden="true">🇫🇷</span>
+        </button>
+        <div class="language-dropdown" role="menu" aria-label="Sélecteur de langue">
+          <a href="../settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇺🇸</span><span class="lang-name">English</span></a>
+          <a href="../ko/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇰🇷</span><span class="lang-name">한국어</span></a>
+          <a href="../zh/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇨🇳</span><span class="lang-name">中文</span></a>
+          <a href="../ja/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇯🇵</span><span class="lang-name">日本語</span></a>
+          <a href="../es/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇪🇸</span><span class="lang-name">Español</span></a>
+          <a href="../de/settings-ai.html" role="menuitem"><span class="lang-flag" aria-hidden="true">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+          <a href="settings-ai.html" role="menuitem" class="active"><span class="lang-flag" aria-hidden="true">🇫🇷</span><span class="lang-name">Français</span></a>
+        </div>
+      </li>
+      <li><a href="../../fr.html">Accueil</a></li>
+      <li><a href="index.html" class="nav-cta">Manuel</a></li>
+      <li><a href="../../feedback.html">Commentaires</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="manual-layout">
+  <aside class="manual-sidebar">
+    <p class="manual-sidebar-title">Manuel Moni</p>
+    <nav>
+      <a href="index.html">Guide utilisateur</a>
+      <a href="custom-buttons.html">Boutons personnalisés (YAML)</a>
+      <a href="settings.html">Paramètres</a>
+      <a href="settings-ai.html" class="sub active">Paramètres → IA</a>
+    </nav>
+    <a href="../../fr.html" class="manual-back">← Retour à l'accueil Moni</a>
+  </aside>
+
+  <main class="manual-content">
+<h1>Paramètres → IA</h1>
+    <p class="manual-lead">Accueil → Chat uses the provider selected here. <strong>Local-first</strong> options (llama.cpp, Ollama) keep your journal and messages on your machine. Cloud providers send chat to their APIs — use them only if you accept that trade-off. Choose <strong>Aucun</strong> to disable chat until you are ready.</p>
+
+    <nav class="manual-toc" aria-label="Sur cette page">
+      <h2>Sur cette page</h2>
+      <ol>
+        <li><a href="#providers">Choosing a provider</a></li>
+        <li><a href="#local">Local IA (llama.cpp)</a></li>
+        <li><a href="#ollama">Ollama</a></li>
+        <li><a href="#cloud">Cloud providers</a></li>
+        <li><a href="#wrapper">IA Wrapper</a></li>
+        <li><a href="#rag">Index de documentation hledger (RAG)</a></li>
+        <li><a href="#chat">Chat behavior</a></li>
+        <li><a href="#troubleshoot">Troubleshooting</a></li>
+      </ol>
+    </nav>
+
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Paramètres → IA panel</span></div>
+        <figcaption>Provider dropdown at the top of the IA section.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Local IA setup wizard</span></div>
+        <figcaption>Configurer l’IA locale: binary, model, server.</figcaption>
+      </figure>
+      <figure class="shot-card">
+        <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chat with IA enabled</span></div>
+        <figcaption>Accueil tab chat after a provider is connected.</figcaption>
+      </figure>
+    </div>
+
+    <section id="providers" class="manual-section">
+      <h2>Choosing a provider</h2>
+      <table class="manual-table">
+        <thead>
+          <tr><th>Provider</th><th>Privacy</th><th>Typical use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Aucun</strong></td><td>Chat disabled</td><td>Registre-only workflow</td></tr>
+          <tr><td><strong>llama.cpp local</strong></td><td>Fully local</td><td>Managed server, model download, GPU support</td></tr>
+          <tr><td><strong>Ollama</strong></td><td>Local (Ollama daemon)</td><td>If you already run Ollama models</td></tr>
+          <tr><td><strong>OpenIA / Claude / Gemini</strong></td><td>Cloud API</td><td>Strong models when local hardware is limited</td></tr>
+          <tr><td><strong>IA Wrapper</strong></td><td>Via Runable desktop app</td><td>Extension or Electron bridge to external services</td></tr>
+        </tbody>
+      </table>
+      <p>After changing provider, use the connectivity check (status indicator) and 📜 <strong>Journaux</strong> button in the IA panel if chat fails to respond.</p>
+    </section>
+
+    <section id="local" class="manual-section">
+      <h2>Local IA (llama.cpp)</h2>
+      <p>Moni can download a <strong>llama-server</strong> binary and a GGUF model, then manage the server process on <code>127.0.0.1</code> (ports 8081–8299). Recommended first-time flow: click <strong>Configurer l’IA locale</strong> or download binary + model separately, then <strong>Démarrer le serveur</strong>.</p>
+
+      <h3>Key controls</h3>
+      <ul>
+        <li><strong>Modèle à utiliser </strong> — pick a bundled preset or choose another GGUF file. Changing model while the server runs may prompt to restart.</li>
+        <li><strong>Utiliser le GPU si disponible</strong> — requires a GPU-capable llama-server build; pick a specific GPU device or “All GPUs”.</li>
+        <li><strong>Désactiver le raisonnement du modèle</strong> — recommended for chat; passes <code>--reasoning off</code> so replies appear in the panel (needed for Qwen 3 and similar “thinking” models).</li>
+        <li><strong>Changer de modèle sans redémarrage (mode routeur)</strong> — swap models without full restart when using a multi-model <code>--models-dir</code> layout.</li>
+        <li><strong>Démarrer l’IA locale au lancement</strong> — starts the managed server after the app loads (binary and model must already be installed).</li>
+        <li><strong>Chat reply length / timeout</strong> — cap tokens and wait time for slow hardware.</li>
+        <li><strong>Répertoire du binaire / Répertoire des modèles</strong> — override default paths; <strong>Réinitialiser les chemins par défaut</strong> restores shipped layout.</li>
+      </ul>
+
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>llama.cpp server controls</span></div>
+          <figcaption>Start/stop, model picker, GPU toggles.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Download progress</span></div>
+          <figcaption>Binary or GGUF download with ETA.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Server diagnostics</span></div>
+          <figcaption>Readiness LED, log tail, copy diagnostics bundle.</figcaption>
+        </figure>
+      </div>
+
+      <div class="manual-callout">
+        Moni-managed server binds the first free port on localhost from 8081 to 8299. The port is saved with the process identity so Moni reconnects after restart.
+      </div>
+    </section>
+
+    <section id="ollama" class="manual-section">
+      <h2>Ollama</h2>
+      <p>Point Moni at your running Ollama instance (default base URL on localhost). Select a model from the list Ollama exposes. Ensure Ollama is installed and the model is pulled (<code>ollama pull …</code>) before chatting.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Ollama model list</span></div>
+          <figcaption>Models available from your Ollama daemon.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cloud" class="manual-section">
+      <h2>Cloud providers (OpenIA, Claude, Gemini)</h2>
+      <p>Enter your API key (stored in local config). Pick model and any provider-specific options shown in the panel. Cloud chat does not require a local GPU but sends conversation content to the vendor’s API — do not use for journals you cannot share externally.</p>
+      <p>Related hledger settings (under Paramètres → hledger): <strong>Vérifier les commandes hledger dans les réponses IA</strong> lint assistant examples against the version-matched complist and your binary before you click Run.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>API key field</span></div>
+          <figcaption>Provider credentials (masked in UI).</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Model selection</span></div>
+          <figcaption>Choose model tier for the selected cloud provider.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="wrapper" class="manual-section">
+      <h2>IA Wrapper (experimental)</h2>
+      <p>Connecters to the Runable <strong>IA Wrapper</strong> desktop app on the same machine. Register a client in IA Wrapper → API, enable services in Preferences, then paste the registration token in Moni. Choose service, mode (Electron in-app webview or Extension Chrome), and client label. Click <strong>Connecterer</strong> to list available services.</p>
+      <p>Contact Runable.app for IA Wrapper access if you do not have the companion app installed.</p>
+    </section>
+
+    <section id="rag" class="manual-section">
+      <h2>Index de documentation hledger (RAG)</h2>
+      <p>Moni can embed hledger documentation so local IA answers cite correct flags and concepts. Status lines in the IA panel show:</p>
+      <ul>
+        <li><strong>Indisponible</strong> — optional for local IA; cloud may still work without it.</li>
+        <li><strong>Sur disque ; charge au premier chat</strong> — doc index present, loads when you first send a message.</li>
+        <li><strong>Prêt — N fragments de documents</strong> — retrieval is active for grounded replies.</li>
+      </ul>
+      <p>For paths, search order, and complist details, check Paramètres → Journaux → Débogage in <code>app.log</code>, or the provider 📜 Journaux button in the IA panel.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>RAG status line</span></div>
+          <figcaption>hledger docs readiness under the Fournisseur IA controls.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="chat" class="manual-section">
+      <h2>Chat behavior on Accueil</h2>
+      <p>With a provider connected, type in Accueil → Chat. Moni may suggest runnable hledger commands; press Enter or use controls to execute them in the Résultats du panneau comptable. With autocomplete enabled (Paramètres → hledger), typing hledger argv shows suggestion popover; Ctrl+H runs hledger from the input line.</p>
+      <p>Interaction logging (Paramètres → Journaux) can record user input, IA conversation, and ledger panel results for your own audit trail.</p>
+      <div class="shot-grid">
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Chat hledger suggestion</span></div>
+          <figcaption>Autocomplete for hledger commands in chat.</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <div class="shot-placeholder"><span class="ph-icon">📷</span><span>Run command from chat</span></div>
+          <figcaption>Assistant-suggested command executed in Résultats du panneau comptable.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshoot" class="manual-section">
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li><strong>L'API compatible OpenIA n'est pas accessible.</strong> — for llama.cpp, confirm Démarrer le serveur succeeded; open server log from the diagnostics LED. Check firewall is not blocking localhost.</li>
+        <li><strong>Wrong GPU build</strong> — CPU-only binary cannot use GPU toggle; download or install a GPU-capable llama-server variant.</li>
+        <li><strong>Empty or “thinking” replies</strong> — enable <strong>Désactiver le raisonnement du modèle</strong> and restart the server.</li>
+        <li><strong>Cloud errors</strong> — verify API key, model name, and network; read 📜 Journaux for HTTP status.</li>
+        <li><strong>RAG not loading</strong> — see app.log debug lines; first chat may take longer while the index loads.</li>
+      </ul>
+      <p>Copy the llama.cpp <strong>diagnostics bundle</strong> (status + log tail) when reporting issues — it includes everything support needs without exposing your journal.</p>
+    </section>
+
+    <nav class="manual-inline-nav" aria-label="Related manual pages">
+      <a href="settings.html">← Paramètres overview</a>
+      <a href="index.html">Guide utilisateur →</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <p>
+    © 2026 <a href="https://runable.app">Runable.app</a>. All rights reserved.
+  </p>
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>
